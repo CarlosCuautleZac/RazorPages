@@ -1,4 +1,4 @@
-﻿@page 
+﻿@page "/js"
 @model EjemploRazorPages.pages.javascript.Leccion1Model
 @{
 }
@@ -14,6 +14,29 @@
         <h2>Variables, tipos de datos, sintaxis</h2>
 
 
+        @*si queremos que se ejecute de inmediato, lo ponemos en body, sino en head*@
 
+
+        <script>
+            alert("Hola Mundo!");
+
+            //Tipos de datos
+            //numeric, boolean, text, object 
+
+
+            //numeric
+            let x = 15;
+
+            //string
+            let y = "hola";
+
+            //bool
+            y=false;
+
+            //json
+            let z = {nombre:"juan",edad:"20"};
+
+
+        </script>
     </body>
 </html>
