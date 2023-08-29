@@ -1,0 +1,27 @@
+﻿@page "/multiplicar"
+@model EjemploRazorPages.pages.MultiplicarModel
+@{
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+}
+
+<html>
+<head>
+    <title>
+        Ejemplo Formulario
+    </title>
+</head>
+<body>
+    <form method="post" action="~/multiplicar">
+        <label>Numero 1:</label>
+        <input asp-for="Numero1" type="number" /><br />
+        <label>Numero 2:</label>
+        <input asp-for="Numero2" type="number" /><br />
+        <input type="submit" />
+
+        <label>El resultado es: @Model.Resultado</label>
+    </form>
+</body>
+</html>
