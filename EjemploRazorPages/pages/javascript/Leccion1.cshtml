@@ -6,37 +6,88 @@
 @*ECMAScritp*@
 
 <html>
-    <head>
-        <title>Lección 1</title>
-    </head>
-    <body>
-        <h1>Lección 1</h1>
-        <h2>Variables, tipos de datos, sintaxis</h2>
+<head>
+    <title>Lección 1</title>
+</head>
+<body>
+    <h1>Lección 1</h1>
+    <h2>Variables, tipos de datos, sintaxis</h2>
 
 
-        @*si queremos que se ejecute de inmediato, lo ponemos en body, sino en head*@
+    @*si queremos que se ejecute de inmediato, lo ponemos en body, sino en head*@
 
 
-        <script>
-            alert("Hola Mundo!");
+    <script>
+        alert("Hola Mundo!");
 
-            //Tipos de datos
-            //numeric, boolean, text, object 
+        //Tipos de datos
+        //numeric, boolean, text, object
 
-
-            //numeric
-            let x = 15;
-
-            //string
-            let y = "hola";
-
-            //bool
-            y=false;
-
-            //json
-            let z = {nombre:"juan",edad:"20"};
+        //Unefined y Null -a veces se consideran como tipos de datos especial
+        //Estos dos es que esta vacio, sin embargo null es que en algun momento pudo tener
+        // algun valor pero ahora esta vacio, mientras que undefined es que desde el inicio ha estado
+        //vacio y sigue vacio
 
 
-        </script>
-    </body>
+        ////numeric
+        //let x = 15;
+
+        ////string
+        //let y = "hola";
+
+        ////bool
+        //y = false;
+
+        ////json
+        //let z = { nombre: "juan", edad: "20" };
+        //----------------------------------------------------------------------------
+        //COMO DECLARAR VARIABLES
+        //{
+        //    var a = 3; // hoising
+        //    //La diferencia entre let y var es su alcance
+        //    console.log(a);
+
+
+        //    //cuando yo declaro algo con const, es porque sera solo lectura, solo se asigna el valor
+        //    //una vez, una vez asignado, no se puede cambiar
+
+        //    const x=5;
+        //    console.log(x);
+
+        //}
+
+        //------------------------------------------------------------------------------------
+
+        //OPERADORES
+        //aritmeticos +,-,*,/,%,**
+        let a = 2 + 2;
+        let a = 3 ** 3;*//Este es potencia
+
+            //logicos: &,|,!,&&,||
+            //relacionales: >, <, >=, <=, ==, ===, !=
+            //Asignacion: +=, -=, *=, /=,  &=, |=, ++, --,=
+
+        let b = "3";
+        let c = 3;
+
+        let d = b == c // esto es true, ya que, 3 es igual a 3
+        let e1 = b === c// esto es false, puesto a que los tipos de datos no son iguales
+
+        let f = true;
+        let g &=false; //undefined y false
+
+        f |= true;//usamos la tabla de verdad para verificar, esto es true
+
+        //cadenas: +,${}
+        //el tipo de dato de cadena se llama text
+        //ejemplos de cadenas
+
+        let str1 = "hola";
+        let str2 = 'hola';
+        let str3 = `hola`;
+        let str4= "hola  juanita'"
+
+
+    </script>
+</body>
 </html>
