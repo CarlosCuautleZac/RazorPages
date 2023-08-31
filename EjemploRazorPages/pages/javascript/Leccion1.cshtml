@@ -60,32 +60,133 @@
 
         //OPERADORES
         //aritmeticos +,-,*,/,%,**
-        let a = 2 + 2;
-        let a = 3 ** 3;*//Este es potencia
+        //let a = 2 + 2;
+        //let a = 3 ** 3;//Este es potencia
 
             //logicos: &,|,!,&&,||
             //relacionales: >, <, >=, <=, ==, ===, !=
             //Asignacion: +=, -=, *=, /=,  &=, |=, ++, --,=
 
-        let b = "3";
-        let c = 3;
+        //let b = "3";
+        //let c = 3;
 
-        let d = b == c // esto es true, ya que, 3 es igual a 3
-        let e1 = b === c// esto es false, puesto a que los tipos de datos no son iguales
+        //let d = b == c // esto es true, ya que, 3 es igual a 3
+        //let e1 = b === c// esto es false, puesto a que los tipos de datos no son iguales
 
-        let f = true;
-        let g &=false; //undefined y false
+        //let f = true;
+        //let g &=false; //undefined y false
 
-        f |= true;//usamos la tabla de verdad para verificar, esto es true
+        //f |= true;//usamos la tabla de verdad para verificar, esto es true
 
-        //cadenas: +,${}
-        //el tipo de dato de cadena se llama text
-        //ejemplos de cadenas
+        ////cadenas: +,${}
+        ////el tipo de dato de cadena se llama text
+        ////ejemplos de cadenas
 
-        let str1 = "hola";
-        let str2 = 'hola';
-        let str3 = `hola`;
-        let str4= "hola  juanita'"
+        //let str1 = "hola";
+        //let str2 = 'hola';
+        //let str3 = `hola`;
+        //let str4= "hola  'juanita'"
+
+        //let str5=str3+str4;
+        //Si uno es cadena automaticamente todos se vuelven cadena
+
+        //1+1 = 2;
+        //"1"+1 = "11";
+        // 1+ (1+1)="12"";
+
+        ////Plantilla literal, (interpolacion)
+        ////solo funciona entre comillas inversas
+
+        //let num = 1;
+        //let num2 = 2;
+        //let res = `El valor es ${num}${num2}`;
+        //let res2 = "El valor es ${num}${num2}";
+        //console.log(res);
+        //console.log(res2);
+
+        ////Multilinea
+        //let cadena1="hola\
+        // a\ 
+        // todos";
+        //console.log(cadena1);
+
+        //CONDICIONAL
+        //Operador terniario
+        let valor = 1>2?5:3;
+
+        //If-------------Es igual al if de toda la vida
+        if(1>2){
+
+        }
+        else if(2>3){
+
+        }
+        else{
+
+        }
+
+        //Switch---------------Es igual que el de toda la vida
+        switch(valor){
+            case 1:valor++;break;
+            default:valor--;
+        }
+
+
+        //Ciclos
+        //While-------------------- es igual que el de toda la vida
+        while(valor>10){
+
+        }
+
+        //Do-while -------------------------Es igual que el de toda la vida
+
+        do{
+
+        }
+        while(valor>10)
+
+        //For----------------------------Es igual en su funcionamiento, 
+        // solo cambia la declaracion de la variable----con let
+        for(let i =0; i<10;i++){
+
+        }
+
+        //Hay no hay foreach, hay dos, for-of y for-in
+        let arreglo = [1,2,3,4];
+        arreglo[20]=100;
+
+        //for-of, aqui se recorre todos los lugares, aunque no tengan valor
+        for(var n of arreglo){
+            console.log(n);
+        }
+
+        //for-in, aqui solo recorre todos los que tinen valor
+        for (var n in arreglo) {
+            console.log(n);
+        }
+
+
+
+
+        //ARREGLOS
+        //Los arreglos se definen con los corchetes
+        let arr = [];
+        arr[0]=5;
+        arr[1]="hola";
+        arr[10]=true;
+        console.log(arr);
+        console.log(arr.length);
+
+        //Funciona como pila y cola
+        arr.push(100);
+        arr.pop()//Elimina el ultimo elemento
+        arr.shift(200);//Elimina el primer elemento
+
+        //Conversiones
+
+        let cad1="100.2";
+        let numero=parseFloat(cad1)+10;
+        console.log(numero);
 
 
     </script>
