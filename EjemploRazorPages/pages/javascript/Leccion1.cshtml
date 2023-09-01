@@ -188,6 +188,25 @@
         let numero=parseFloat(cad1)+10;
         console.log(numero);
 
+        //hay 3 formas de convertir numeros
+        //parseInt
+        //parseFloat
+        //Number
+
+        let num1=ParseInt("3.1");//---->3
+        let num2=ParseFloat("3.1")//--->3.1
+        let num3=Number("3.1")//------->3.1 (me trae la representacion numerica)
+        let num4=parseInt("15cm");//--->15 (se trae el primer entero que trae la cadena, tiene que
+        //contener un numero al principio forzozamente)
+        let num5=parseInt("cm15")//---->NaN
+        let num6= parseInt("15 06 26")//15 (se trae el primer numero que encuentra)
+        let num7= Number("15cm")//----->NaN (convierte toda la cadena en un numero)
+        let num8=parseInt("1001",2)//-->9 (tiene la capacidad de convertir a un sistema que desees, como binario)
+
+        //Tambien tenemos las conversiones implicitas
+        let num9=10+true;//11 (un true vale 1, y un false vale 0)
+        //podemos hacer cosas raras
+        let valor10="hola"==true;//esto da false --tendria que decir true o 1, que es su equivalente
 
     </script>
 </body>
