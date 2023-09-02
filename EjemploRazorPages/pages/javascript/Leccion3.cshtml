@@ -1,0 +1,33 @@
+﻿@page "/js3"
+@model EjemploRazorPages.pages.javascript.Leccion3Model
+@{
+}
+
+<html>
+<head>
+    <title>Lección 3</title>
+</head>
+<body>
+    <h1 id="titulo">Lección 3. Propagacion de eventos</h1>
+
+    <form>
+        <input type="button" value="Botón 1"/>
+        <input type="button" value="Botón 2" />
+        <input type="button" value="Botón 3" />
+
+        <p>Haz clic en un botón</p>
+    </form>
+
+    <script>
+
+        //En js todoso los nombres de las etiquetas son en mayusculas
+        document.querySelector("form").addEventListener("click",function(event){
+            if(event.target.tagName=="INPUT"){
+                alert(event.target.value);
+            }
+        });
+
+
+    </script>
+</body>
+</html>

@@ -4,31 +4,61 @@
 }
 
 <html>
-    <head>
-        <title>Lección 2</title>
-    </head>
-    <body>
-        <h1>Lección 2. Objetos (DOM) y eventos</h1>
-        <form>
-            <input id="btnPresioname" type="button" value="Presioname"/>
-            <input type="button" value="Cambiar Color"/>
-        </form>
+<head>
+    <title>Lección 2</title>
+</head>
+<body>
+    <h1 id="titulo">Lección 2. Objetos (DOM) y eventos</h1>
+    <form>
+        <input id="btnPresioname" type="button" value="Presioname" />
+        <input id="btnCambiarColor" type="button" value="Cambiar Color" />
+    </form>
 
-        <script>
-           let obj= document.querySelector("h1");
-           obj.textContent="Hola";
-           obj.style.color="red";
+    <script>
+        //let obj = document.querySelector("h1");
+        //obj.textContent = "Hola";
+        //obj.style.color = "red";
 
-        let btn = document.getElementById("btnPresioname");
-        btn.style.backgroundColor = "yellow";
+        //let btn = document.getElementById("btnPresioname");
+        //btn.style.backgroundColor = "yellow";
 
-        //Los elementos que me permiten seleccionar el dom son  5, 
+        //Los elementos que me permiten seleccionar el dom son  5,
         //querySelector --- este regresa el primero que encuentra
         //querySelectorAll---este regresa un arreglo
         //getElementById ---regresa el elemento que contenga ese id, si hay mas de uno, da error
         //getElementByTagName-----regresa todos los elementos que tengan ese nombre
         //getElementByTagName----regresa todos los elementos que contengan esas etiquetas
-        </script>
 
-    </body>
+        
+
+        function mostrarMensaje(){
+            alert("hiciste click");
+        }
+
+        //function cambiarColor() {
+        //    let titulo = document.getElementById("titulo")
+        //    titulo.style.color = "red";
+        //}
+
+        let btn = document.getElementById("btnPresioname");
+        btn.addEventListener("click",mostrarMensaje);
+
+        //let btnColor = document.getElementById("btnCambiarColor");
+        //btnColor.addEventListener("click", cambiarColor);
+
+        document.querySelector("#btnCambiarColor").addEventListener("click", function () {
+            
+            let obj = document.querySelector("h1");
+            if (obj.style.color == "red"){
+
+                obj.style.color = "black";
+            }
+            else{
+                obj.style.color = "red";
+            }
+        });
+
+    </script>
+
+</body>
 </html>
