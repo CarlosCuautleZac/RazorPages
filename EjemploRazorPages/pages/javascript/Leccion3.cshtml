@@ -20,12 +20,16 @@
 
     <script>
 
+        const parrafo = document.querySelector("form p");
+
         //En js todoso los nombres de las etiquetas son en mayusculas
         document.querySelector("form").addEventListener("click",function(event){
             if(event.target.tagName=="INPUT"){
-                alert(event.target.value);
+                parrafo.textContent = `Hiciste clic en el ${event.target.value}`;
             }
         });
+
+
 
 
     </script>

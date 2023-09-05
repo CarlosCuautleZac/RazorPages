@@ -1,0 +1,69 @@
+﻿@page "/js4"
+@model EjemploRazorPages.pages.javascript.Leccion4Model
+@{
+}
+
+<html>
+<head>
+    <title>Lección 4</title>
+</head>
+<body>
+    <h1 id="titulo">Lección 4. Creacion de objetos con DOM</h1>
+
+    <form>
+        <label>Actividad:</label>
+        <input id="actividad" type="text" /> <input id="btnAgregar" type="button" value="Agregar" /><br />
+        <select size="10"></select>
+    </form>
+
+    <script>
+
+        //Buscar el select
+        const selectTarea = document.querySelector("select");
+
+        //Buscar lo que tiene el texto
+        const texto = document.getElementById("actividad");
+
+        //Creamos un event listener al boton
+        document.getElementById("btnAgregar").addEventListener("click", function () {
+            //Validar que no este vacio
+            if (texto.value) {
+                //creo un option
+                let option = document.createElement("OPTION");
+
+                //colocar el texto en el option
+                option.textContent = texto.value;
+
+                //Agregar el option al select
+                selectTarea.append(option);
+
+                //borrar el texto del cuadro de texto
+                texto.style.outlineColor = "none";
+                texto.value = null;
+            }
+            else {
+                texto.style.outlineColor = "red";
+                texto.setCustomValidity("Escriba la actividad para continuar");
+                texto.reportValidity();
+            }
+        });
+
+
+
+
+                //createElement() -- creas elementos
+                //createTextNode -- creas textos sin ninguna etiqueta, como para poner texto dentro de etiquetas
+                //createComment -- crea comentrios
+
+                //Para crear elementos en el documento padre, usamos create element
+                // //EJEMPLO
+                //let input = document.createElement("INPUT");
+                //input.value="Hola";
+                 //input.type="button";
+                //document.querySelector("form").append(input);
+
+
+
+    </script>
+</body>
+</html>
