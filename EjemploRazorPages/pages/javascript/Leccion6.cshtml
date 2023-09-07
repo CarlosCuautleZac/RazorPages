@@ -1,0 +1,54 @@
+﻿@page "/js6"
+@model EjemploRazorPages.pages.javascript.Leccion6Model
+@{
+}
+
+<html>
+<head>
+    <title>Lección 6</title>
+</head>
+<body>
+
+    <style>
+        select{
+            width:150px;
+        }
+    </style>
+
+    <h1 id="titulo">Lección 6. Mover objetos</h1>
+
+    <form>
+        <input type="text" id="texto"/><input type="button" value="+" /><br />
+
+        <select size="10"></select>
+        <input type="button" value=">>" />
+        <input type="button" value="<<" />
+        <select size="10"></select>
+    </form>
+
+    <script>
+        const form = document.querySelector("form");
+        const textbox = form.querySelector("#texto");
+        const selects = form.getElementsByTagName("SELECT");
+
+        //agregar
+        form.addEventListener("click", function(event){
+            if(event.target.type && event.target.type == "button"){
+                
+                let btnAgregar = event.target.value;
+
+                 if(btnAgregar=="+" && textbox.value){
+                     let op = document.createElement("OPTION");
+                     op.textContent = textbox.value;
+                     selects[0].add(op);
+                     textbox.value="";
+                 }
+
+            }
+        });
+
+
+
+    </script>
+</body>
+</html>
