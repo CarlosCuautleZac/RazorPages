@@ -7,6 +7,21 @@
 <html>
 <head>
     <title>Lección 7</title>
+
+    <style>
+        table {
+            width: 40%;
+            margin: auto;
+            border: 1px black solid;
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -15,11 +30,11 @@
     <form>
 
         <label>Núm. Control:</label>
-        <input type="text"/>
+        <input required name="numControl" pattern="\d\d1\w\w\d\d\d" title="escribe un numero de control valido para el ITESRC" type="text" /> <br />
         <label>Nombre:</label>
-        <input type="text"/>
+        <input required name="nombre" type="text" />
 
-        <input type="button" value="Agregar"/>
+        <input id="btnAgregar" type="button" value="Agregar" />
 
     </form>
 
@@ -36,8 +51,36 @@
     </table>
 
     <script>
-        
+        const table = document.querySelector("table tbody");
+        const form = document.querySelector("form");
 
+        form.querySelector("#btnAgregar").addEventListener("click", function () {
+            //Validar que no este vacio -------- asi puedo acceder a los controles de un formulario usando nombres
+            // alert(form.elements[0].value)
+            // alert(form.elements["numControl"].value);
+            // alert(form.elements.numControl.value);
+
+            let numControl = form.elements.numControl.value;
+            let nombre = form.elements.nombre.value;
+
+            if (numControl && nombre) {
+                let tr = table.insertRow();
+
+                //lo podemos hacer asi
+                let td1 = tr.insertCell();
+                td1.textContent = numControl;
+
+                //tambien lo podemos hacer asi si no quiero guardar la referencia
+                tr.insertCell().textContent = nombre;
+
+                //Limpiamos las etiquetas --- resetea solo los que tinen name
+                form.reset();
+
+            }
+            else {
+                form.reportValidity();
+            }
+        });
 
     </script>
 </body>
