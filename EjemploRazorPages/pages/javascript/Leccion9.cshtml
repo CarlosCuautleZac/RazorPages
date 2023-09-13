@@ -1,0 +1,75 @@
+﻿@page "/js9"
+@model EjemploRazorPages.pages.javascript.Leccion9Model
+@{
+}
+<html>
+<head>
+    <title>Lección 9</title>
+
+    <style>
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid black;
+        }
+
+            td:first-of-type {
+                width: 20%;
+            }
+
+        tfoot a {
+            display: inline-block;
+        }
+
+            tfoot a.selected {
+                font-weight: bold;
+            }
+    </style>
+</head>
+<body>
+
+    <h1 id="titulo">Lección 9. Págino de datos</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Núm. Control</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script src="~/scripts/alumnos.js"></script>
+    <script>
+        const tbody = document.querySelector("table tbody");
+        const tfoot = document.querySelector("table tfoot td");
+        const tamañoPagina = 5;
+        const totalPaginas = Math.ceil(lista.length / tamañoPagina);
+        let pagina = 0;
+
+        for (let i = 0; i < tamañoPagina; i++) {
+            let tr = tbody.insertRow();
+            tr.insertCell();
+            tr.insertCell();
+        }
+        for (let i = 0; i < totalPaginas; i++) {
+            let a = document.createElement("A");
+            a.textContent = i + 1;
+            a.href="javascript:";
+        }
+
+    </script>
+</body>
+</html>
