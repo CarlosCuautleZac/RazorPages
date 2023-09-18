@@ -57,6 +57,7 @@
         const tfoot = document.querySelector("table tfoot td");
         const tamañoPagina = 5;
         const totalPaginas = Math.ceil(lista.length / tamañoPagina);
+        console.log(lista.length);
         let pagina = 0;
 
         for (let i = 0; i < tamañoPagina; i++) {
@@ -67,14 +68,46 @@
         for (let i = 0; i < totalPaginas; i++) {
             let a = document.createElement("A");
             a.textContent = i + 1;
-            a.href="javascript:";
+            a.href = "javascript:";
             tfoot.append(a);
         }
 
-        function mostrarDatosPagina(pagina){
+        function mostrarDatosPagina(pagina) {
             let inicio = tamañoPagina * pagina;
-            let final = 
+            //para que no se te olvide
+            //toma 
+            let final = Math.min(inicio + tamañoPagina - 1, lista.length - 1);
+            //console.log(final);
+
+            for (let i = inicio; i <= final; i++) {
+
+                let tr = tbody.rows[i - inicio];
+                tr.style.display = null;
+                let datos = lista[i];
+                tr.cells[0].textContent = datos.NumControl;
+                tr.cells[1].textContent = datos.Nombre;
+
+                if(i==lista.length-1)
+                {
+                    tbody.rows[i - inicio + 1].style.display = "none";
+                    //console.log(tbody.rows[i - inicio + 1]);
+                }
+                    
+            }
+
+
         }
+
+        mostrarDatosPagina(pagina);
+
+        tfoot.addEventListener("click", function (event) {
+            if (event.target.tagName === "A") {
+                let page = event.target.textContent - 1;
+                //console.log(page);
+                mostrarDatosPagina(page);
+            }
+        });
+
 
     </script>
 </body>
