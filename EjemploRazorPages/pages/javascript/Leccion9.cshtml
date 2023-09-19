@@ -79,36 +79,47 @@
             let final = Math.min(inicio + tamañoPagina - 1, lista.length - 1);
             //console.log(final);
 
-            for (let i = inicio; i <= final; i++) {
 
-                let tr = tbody.rows[i - inicio];
-                tr.style.display = null;
-                let datos = lista[i];
-                tr.cells[0].textContent = datos.NumControl;
-                tr.cells[1].textContent = datos.Nombre;
+            for (let i = inicio, pos = 0; i <= final; i++, pos++) {
 
-                if(i==lista.length-1)
-                {
-                    tbody.rows[i - inicio + 1].style.display = "none";
-                    //console.log(tbody.rows[i - inicio + 1]);
-                }
-                    
+                //Yo
+                //let tr = tbody.rows[i - inicio];
+                //tr.style.display = null;
+                //let datos = lista[i];
+                //tr.cells[0].textContent = datos.NumControl;
+                //tr.cells[1].textContent = datos.Nombre;
+
+                //if(i==lista.length-1)
+                //{
+                //    tbody.rows[i - inicio + 1].style.display = "none";
+                //    //console.log(tbody.rows[i - inicio + 1]);
+                //}
+
+                //Alumno
+                let alumno = lista[i];
+                tbody.rows[pos].cells[0].textContent = alumno.NumControl;
+                tbody.rows[pos].cells[1].textContent = alumno.Nombre;
+                tbody.rows[pos].style.display = null;
             }
 
+            let total = final - inicio +1;
+            for (let i = total; i < tamañoPagina; i++){
+                tbody.rows[i].style.display = "none";
+            }
 
         }
 
-        mostrarDatosPagina(pagina);
+       
 
         tfoot.addEventListener("click", function (event) {
             if (event.target.tagName === "A") {
-                let page = event.target.textContent - 1;
+                let page = parseInt(event.target.textContent)-1;
                 //console.log(page);
                 mostrarDatosPagina(page);
             }
         });
 
-
+        mostrarDatosPagina(pagina);
     </script>
 </body>
 </html>

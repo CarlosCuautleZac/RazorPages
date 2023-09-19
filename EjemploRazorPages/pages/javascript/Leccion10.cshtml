@@ -1,0 +1,105 @@
+﻿@page "/js10"
+@model EjemploRazorPages.pages.javascript.Leccion10Model
+@{
+}
+
+<html>
+<head>
+    <title>Lección 10</title>
+
+    <style>
+        table{
+            width:80%;
+            margin:auto;
+            border-collapse:collapse;
+        }
+
+        table td, table th{
+            border:1px solid black;
+            padding:5px;
+        }
+        table th{
+            background:black;
+            color:white;
+        }
+
+        table td:last-of-type{
+            text-align:center;
+        }
+
+        div{
+            padding:10px;
+            text-align:center;
+        }
+
+        input[type=button], input[type=submit]{
+            background:black;
+            color:white;
+            padding:3px 10px;
+
+        }
+
+    </style>
+</head>
+<body>
+    <h1 id="titulo">Lección 10: CRUD con ventanas modales</h1>
+
+    <div>
+        <input type="button" value="Nuevo" id="btnNuevo"/>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th >Núm.Control</th>
+                <th>Nombre</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>191G0235</td>
+                <td>Carlos Cuautle Zacamitzin</td>
+                <td>&vellip;</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="modal">
+        <form class="formAgregar">
+            <input type="text" placeholder="Número de control" />
+            <input type="text" placeholder="Nombre" />
+            <input type="submit" value="Agregar" />
+            <input type="button" value="Cancelar" />
+
+        </form>
+    </div>
+
+    <div class="modal">
+    <form class="formEditar">
+            <input type="text" placeholder="Número de control"/>
+            <input type="text" placeholder="Nombre"/>
+            <input type="submit" value="Guardar" />
+            <input type="button" value="Cancelar" />
+
+        </form>
+    </div>
+
+    <div class="modal">
+        <form class="formEliminar">
+            <p>¿Desea eliminar?</p>
+            <input type="submit" value="Si" />
+            <input type="button" value="No" />
+
+        </form>
+    </div>
+
+    <script>
+      
+
+    </script>
+
+</body>
+</html>
+
+

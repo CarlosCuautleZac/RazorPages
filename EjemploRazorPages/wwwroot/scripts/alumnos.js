@@ -78,6 +78,10 @@ const lista = [
     {
         "NumControl": "191G0710",
         "Nombre": "VALDEZ BELTRAN CARLOS ALBERTO"
+    },
+    {
+        "NumControl": "191G0711",
+        "Nombre": "GONZALEZ OLIVARES ROBERTO ROQUEBED"
     }
 ];
 
