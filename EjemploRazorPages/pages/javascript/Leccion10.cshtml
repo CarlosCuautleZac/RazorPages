@@ -8,36 +8,66 @@
     <title>Lección 10</title>
 
     <style>
-        table{
-            width:80%;
-            margin:auto;
-            border-collapse:collapse;
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
         }
 
-        table td, table th{
-            border:1px solid black;
-            padding:5px;
-        }
-        table th{
-            background:black;
-            color:white;
+            table td, table th {
+                border: 1px solid black;
+                padding: 5px;
+            }
+
+            table th {
+                background: black;
+                color: white;
+            }
+
+            table td:last-of-type {
+                text-align: center;
+            }
+
+        div {
+            padding: 10px;
+            text-align: center;
         }
 
-        table td:last-of-type{
-            text-align:center;
+        input[type=button], input[type=submit] {
+            background: black;
+            color: white;
+            padding: 3px 10px;
         }
 
-        div{
-            padding:10px;
-            text-align:center;
+        div.modal { /*overlay*/
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,.3);
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0;
+            display: none;
         }
 
-        input[type=button], input[type=submit]{
-            background:black;
-            color:white;
-            padding:3px 10px;
+            div.modal form {
+                background: white;
+                border: 1px solid black;
+                width: 500px;
+                padding: 20px;
+                margin: 20px auto;
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
 
-        }
+                div.modal form input[type=text], div.modal form p {
+                    width: 100%;
+                }
+
+                div.modal form input {
+                    width: calc(50%-5px);
+                }
 
     </style>
 </head>
@@ -45,13 +75,13 @@
     <h1 id="titulo">Lección 10: CRUD con ventanas modales</h1>
 
     <div>
-        <input type="button" value="Nuevo" id="btnNuevo"/>
+        <input type="button" value="Nuevo" id="btnNuevo" />
     </div>
 
     <table>
         <thead>
             <tr>
-                <th >Núm.Control</th>
+                <th>Núm.Control</th>
                 <th>Nombre</th>
                 <th></th>
             </tr>
@@ -76,9 +106,9 @@
     </div>
 
     <div class="modal">
-    <form class="formEditar">
-            <input type="text" placeholder="Número de control"/>
-            <input type="text" placeholder="Nombre"/>
+        <form class="formEditar">
+            <input type="text" placeholder="Número de control" />
+            <input type="text" placeholder="Nombre" />
             <input type="submit" value="Guardar" />
             <input type="button" value="Cancelar" />
 
@@ -94,7 +124,14 @@
         </form>
     </div>
 
-    <script> 
+    <script>
+
+        var formAgregar = document.querySelector(".formAgregar");
+
+            //un modal esta hecho por dos partes, un overlay, que es para ocultar lo de atras y mostrar el modal
+            document.getElementById("btnNuevo").addEventListener("click", function () {
+                formAgregar.parentElement.style.display = "block";
+            });
 
     </script>
 
