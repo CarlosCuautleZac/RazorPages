@@ -128,10 +128,19 @@
 
         var formAgregar = document.querySelector(".formAgregar");
 
-            //un modal esta hecho por dos partes, un overlay, que es para ocultar lo de atras y mostrar el modal
-            document.getElementById("btnNuevo").addEventListener("click", function () {
-                formAgregar.parentElement.style.display = "block";
-            });
+        //un modal esta hecho por dos partes, un overlay, que es para ocultar lo de atras y mostrar el modal
+        document.getElementById("btnNuevo").addEventListener("click", function () {
+            formAgregar.parentElement.style.display = "block";
+        });
+
+
+        //En js todoso los nombres de las etiquetas son en mayusculas
+        document.querySelector("body").addEventListener("click", function (event) {
+            if (event.target.tagName == "button") {
+                parrafo.textContent = `Hiciste clic en el ${event.target.value}`;
+            }
+        });
+
 
     </script>
 
