@@ -97,8 +97,8 @@
 
     <div class="modal">
         <form class="formAgregar">
-            <input type="text" placeholder="Número de control" />
-            <input type="text" placeholder="Nombre" />
+            <input name="numControl" type="text" placeholder="Número de control" required pattern="\d{2}1[A-Z][EC0DM]\d{3}" />
+            <input name="nombre" type="text" placeholder="Nombre" required/>
             <input type="submit" value="Agregar" />
             <input type="button" value="Cancelar" />
 
@@ -135,12 +135,22 @@
 
 
         //En js todoso los nombres de las etiquetas son en mayusculas
-        document.querySelector("body").addEventListener("click", function (event) {
-            if (event.target.tagName == "button" && ()) {
-                parrafo.textContent = `Hiciste clic en el ${event.target.value}`;
+        document.body.addEventListener("click", function (e) {
+            if (e.target.tagName == "INPUT" && (e.target.value == "Cancelar" || e.target.value == "No")) {
+                e.target.form.reset();
+                e.target.form.parentElement.style.display = "none";
             }
+
         });
 
+        document.addEventListener("submit",function(ev){
+            ev.preventDefault();
+
+            let form = ev.target;
+            if(form.classList.includes("formAgregar")){
+
+            }
+        });
 
     </script>
 
