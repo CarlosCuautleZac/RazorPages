@@ -69,6 +69,38 @@
                     width: calc(50%-5px);
                 }
 
+
+        table td:last-of-type {
+            position: relative;
+        }
+
+        table td:last-of-type .contextMenu{
+            display:block;
+        }
+
+        .contextMenu {
+            display:none;
+            border: 1px solid black;
+            padding: 5px;
+            width: 150px;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: lightgray;
+        }
+
+            .contextMenu a {
+                display: block;
+                text-decoration: none;
+                color: black;
+                text-align: left;
+            }
+
+            .contextMenu a:hover{
+                background-color:antiquewhite;
+                cursor:-moz-zoom-in;
+            }
+
     </style>
 </head>
 <body>
@@ -90,15 +122,34 @@
             <tr>
                 <td>191G0235</td>
                 <td>Carlos Cuautle Zacamitzin</td>
-                <td>&vellip;</td>
+                <td>
+                    &vellip;
+                </td>
+            </tr>
+
+            <tr>
+                <td>191G0235</td>
+                <td>Carlos Cuautle Zacamitzin</td>
+                <td>
+                    &vellip;
+                   @* <nav class="contextMenu">
+                        <a href="javascript:">Editar</a>
+                        <a href="javascript:">Eliminar</a>
+                    </nav>*@
+                </td>
             </tr>
         </tbody>
     </table>
 
+    <nav class="contextMenu">
+    <a href="javascript:">Editar</a>
+    <a href="javascript:">Eliminar</a>
+    </nav>
+
     <div class="modal">
         <form class="formAgregar">
             <input name="numControl" type="text" placeholder="Número de control" required pattern="\d{2}1[A-Z][EC0DM]\d{3}" />
-            <input name="nombre" type="text" placeholder="Nombre" required/>
+            <input name="nombre" type="text" placeholder="Nombre" required />
             <input type="submit" value="Agregar" />
             <input type="button" value="Cancelar" />
 
@@ -127,7 +178,8 @@
     <script>
 
         var formAgregar = document.querySelector(".formAgregar");
-
+        var tabla = document.querySelector("table tbody");
+        var contextMenu = document.querySelector(".contextMenu");
         //un modal esta hecho por dos partes, un overlay, que es para ocultar lo de atras y mostrar el modal
         document.getElementById("btnNuevo").addEventListener("click", function () {
             formAgregar.parentElement.style.display = "block";
@@ -137,18 +189,30 @@
         //En js todoso los nombres de las etiquetas son en mayusculas
         document.body.addEventListener("click", function (e) {
             if (e.target.tagName == "INPUT" && (e.target.value == "Cancelar" || e.target.value == "No")) {
+                e.stopPropagation();
                 e.target.form.reset();
                 e.target.form.parentElement.style.display = "none";
             }
 
+            else if (e.target.tagName == "TD" && e.target.textContent.trim() == "⋮") {
+                e.stopPropagation();
+                e.target.append(contextMenu);
+            }
+
+
         });
 
-        document.addEventListener("submit",function(ev){
+        document.addEventListener("submit", function (ev) {
             ev.preventDefault();
 
             let form = ev.target;
-            if(form.classList.includes("formAgregar")){
-
+            if (form.classList.contains("formAgregar")) {
+                let tr = tabla.insertRow();
+                tr.insertCell().textContent = form.elements.numControl.value;
+                tr.insertCell().textContent = form.elements.nombre.value;
+                tr.insertCell().innerHTML = "&vellip;";
+                form.reset();
+                form.parentElement.style.display = "none";
             }
         });
 
