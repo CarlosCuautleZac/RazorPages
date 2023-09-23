@@ -74,12 +74,12 @@
             position: relative;
         }
 
-        table td:last-of-type .contextMenu{
-            display:block;
-        }
+            table td:last-of-type .contextMenu {
+                display: block;
+            }
 
         .contextMenu {
-            display:none;
+            display: none;
             border: 1px solid black;
             padding: 5px;
             width: 150px;
@@ -96,10 +96,10 @@
                 text-align: left;
             }
 
-            .contextMenu a:hover{
-                background-color:antiquewhite;
-                cursor:-moz-zoom-in;
-            }
+                .contextMenu a:hover {
+                    background-color: antiquewhite;
+                    cursor: -moz-zoom-in;
+                }
 
     </style>
 </head>
@@ -132,9 +132,9 @@
                 <td>Carlos Cuautle Zacamitzin</td>
                 <td>
                     &vellip;
-                   @* <nav class="contextMenu">
-                        <a href="javascript:">Editar</a>
-                        <a href="javascript:">Eliminar</a>
+                    @* <nav class="contextMenu">
+                    <a href="javascript:">Editar</a>
+                    <a href="javascript:">Eliminar</a>
                     </nav>*@
                 </td>
             </tr>
@@ -142,8 +142,8 @@
     </table>
 
     <nav class="contextMenu">
-    <a href="javascript:">Editar</a>
-    <a href="javascript:">Eliminar</a>
+        <a href="javascript:">Editar</a>
+        <a href="javascript:">Eliminar</a>
     </nav>
 
     <div class="modal">
@@ -180,6 +180,9 @@
         var formAgregar = document.querySelector(".formAgregar");
         var tabla = document.querySelector("table tbody");
         var contextMenu = document.querySelector(".contextMenu");
+        var formEliminar = document.querySelector(".formEliminar");
+        var formEditar = document.querySelector(".formEditar");
+
         //un modal esta hecho por dos partes, un overlay, que es para ocultar lo de atras y mostrar el modal
         document.getElementById("btnNuevo").addEventListener("click", function () {
             formAgregar.parentElement.style.display = "block";
@@ -194,11 +197,15 @@
                 e.target.form.parentElement.style.display = "none";
             }
 
-            else if (e.target.tagName == "TD" && e.target.textContent.trim() == "⋮") {
+            else if (e.target.tagName == "TD" && e.target.parentElement.lastElementChild == e.target) {
                 e.stopPropagation();
                 e.target.append(contextMenu);
+                return;
             }
 
+            if (e.target != contextMenu){
+                document.body.append(contextMenu);
+            }
 
         });
 
@@ -213,6 +220,16 @@
                 tr.insertCell().innerHTML = "&vellip;";
                 form.reset();
                 form.parentElement.style.display = "none";
+            }
+        });
+
+
+        contextMenu.addEventListener("click",function(e){
+            if(e.target.textContent== "Eliminar"){
+               formEliminar.parentElement.style.display="block";
+            }
+            else if (e.target.textContent == "Editar") {
+                formEditar.parentElement.style.display ="block";
             }
         });
 
