@@ -158,11 +158,10 @@
 
     <div class="modal">
         <form class="formEditar">
-            <input type="text" placeholder="Número de control" />
-            <input type="text" placeholder="Nombre" />
+            <input name="numControl" type="text" placeholder="Número de control" required pattern="\d{2}1[A-Z][EC0DM]\d{3}" />
+            <input name="nombre" type="text" placeholder="Nombre" required />
             <input type="submit" value="Guardar" />
             <input type="button" value="Cancelar" />
-
         </form>
     </div>
 
@@ -182,6 +181,7 @@
         var contextMenu = document.querySelector(".contextMenu");
         var formEliminar = document.querySelector(".formEliminar");
         var formEditar = document.querySelector(".formEditar");
+        var rowSeleccionado;
 
         //un modal esta hecho por dos partes, un overlay, que es para ocultar lo de atras y mostrar el modal
         document.getElementById("btnNuevo").addEventListener("click", function () {
@@ -203,7 +203,7 @@
                 return;
             }
 
-            if (e.target != contextMenu){
+            if (e.target != contextMenu) {
                 document.body.append(contextMenu);
             }
 
@@ -221,15 +221,60 @@
                 form.reset();
                 form.parentElement.style.display = "none";
             }
+            //Asi es valido
+            else if (form.classList.contains("formEliminar")){
+                if(rowSeleccionado){
+                    rowSeleccionado.remove();
+                    rowSeleccionado = null;
+                    formEliminar.parentElement.style.display = "none";
+                }
+            }
+            //Asi es valido tambien
+            else if (form == formEditar) {
+                if (rowSeleccionado) {
+                    
+                    rowSeleccionado.cells[0].textContent = form.elements.numControl.value;
+                    rowSeleccionado.cells[1].textContent = form.elements.nombre.value;
+
+                    rowSeleccionado = null;
+                    form.reset();
+                    formEditar.parentElement.style.display = "none";
+                }
+            }
         });
 
 
-        contextMenu.addEventListener("click",function(e){
-            if(e.target.textContent== "Eliminar"){
-               formEliminar.parentElement.style.display="block";
-            }
-            else if (e.target.textContent == "Editar") {
-                formEditar.parentElement.style.display ="block";
+        contextMenu.addEventListener("click", function (e) {
+
+            let form = 
+            e.target.textContent == "Eliminar"?formEliminar:
+            e.target.textContent=="Editar"?formEditar:null;
+
+            //if (e.target.textContent == "Eliminar") {
+
+            //    //Busca de hijos hasta padres que cumplan con ese criterio, en este caso que sea un tr
+            //    rowSeleccionado = e.target.closest("tr");
+            //    formEliminar.parentElement.style.display = "block";
+            //    return
+            //}
+            // if (e.target.textContent == "Editar") {
+
+            //    //Busca de hijos hasta padres que cumplan con ese criterio, en este caso que sea un tr
+            //    rowSeleccionado = e.target.closest("tr");
+            //    formEditar.parentElement.style.display = "block";
+            //    return
+            //}
+
+            //console.log(form);
+            if(form){
+                rowSeleccionado = e.target.closest("tr");
+
+                if(form==formEditar){
+                    form.elements.numControl.value = rowSeleccionado.cells[0].textContent;
+                    form.elements.nombre.value = rowSeleccionado.cells[1].textContent;
+                }
+
+                form.parentElement.style.display = "block";
             }
         });
 
