@@ -1,0 +1,51 @@
+﻿@page "/panaderia"
+@model EjemploRazorPages.pages.Unidad2.Ejercicio1Model
+@{
+}
+<html>
+<head>
+    <title>Panaderia</title>
+    <link href="~/styles/ejercicio1.css" rel="stylesheet" />
+</head>
+<body>
+
+    <main>
+        <h1>Punto de Venta - Panaderia</h1>
+        <div class="panes">
+            <div>
+                <button>
+                    <img src="https://www.panaderiabistro702.mx/cdn/shop/products/concha-chocolate_720x.jpg" />
+                    $12.00
+                </button>
+
+            </div>
+        </div>
+        <div class="tabla">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ARTICULO</th>
+                        <th>UNIDADES</th>
+                        <th>PRECIO</th>
+                        <th>SUBTOTAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Concha</td>
+                        <td>3</td>
+                        <td>$12.00</td>
+                        <td>$36.00</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+        <input type="button" value="Cobrar: $0.00" />
+
+
+    </main>
+
+</body>
+</html>

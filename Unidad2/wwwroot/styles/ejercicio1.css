@@ -1,0 +1,81 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+main {
+    margin: 0;
+    padding: 0;
+    height: calc(100% - 20px);
+    border: 10px solid dodgerblue;
+    display: grid;
+    grid-template-rows: 5% 85% 10%;
+    grid-template-columns: 50% 50%;
+}
+
+
+h1 {
+    text-align: center;
+    background-color: dodgerblue;
+    font-size: 15pt;
+    color: white;
+    grid-column: span 2;
+    margin:0;
+    padding:0;
+}
+
+.panes {
+    padding: 5px;
+    border-right: 10px solid dodgerblue;
+    height: calc(100% - 10px);
+    grid-row: span 2;
+    overflow-y: auto;
+}
+
+    .panes > div {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .panes button {
+        background: white;
+        border: 2px outset gainsboro;
+        text-align:center;
+        font-size:12pt;
+        padding:2px;
+    }
+
+        .panes button img {
+            max-width: 100%;
+        }
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    table td {
+        padding: 5px;
+        text-align: center;
+        font-size: 18pt;
+    }
+
+        table td:first-of-type {
+            text-align: left;
+            width:40%;
+        }
+
+main > input {
+    background-color:royalblue;
+    font-size:20pt;
+    color:white;
+}
+
+.tabla{
+    overflow-y:auto;
+}
