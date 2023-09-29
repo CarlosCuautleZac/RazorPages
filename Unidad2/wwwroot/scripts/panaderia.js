@@ -3,6 +3,8 @@
 var listaProductos;
 const botonera = document.querySelector(".panes div");
 const tabla = document.querySelector(".tabla tbody")
+var saldo = 0;
+const boton = document.querySelector("input[type=button]");
 
 async function descargarProductos() {
     let response = await fetch("https://integracion.itesrc.net/api/panes");
@@ -41,12 +43,14 @@ botonera.addEventListener("click", function (e) {
             //manera 2
             let row = tabla.querySelector(`[data-id="${id}"]`)
 
-            if (row) {//si lo encontro
+            if (row) {//si lo encontro 
 
                 let cantidad = parseInt(row.cells[1].textContent) + 1;
                 row.cells[1].textContent = cantidad;
                 let subtotal = cantidad * pan.precio;
                 row.cells[3].textContent = "$" + subtotal.toFixed(2);
+
+                
             }
             else {//si no lo encuntre
                 row = tabla.insertRow();
@@ -55,7 +59,11 @@ botonera.addEventListener("click", function (e) {
                 row.insertCell().textContent = 1;
                 row.insertCell().textContent = pan.precio.toFixed(2);
                 row.insertCell().textContent = pan.precio.toFixed(2);
+                
             }
+
+            saldo += pan.precio;
+            boton.value = "Cobrar: $" + saldo.toFixed(2);
         }
     }  
 },true);
