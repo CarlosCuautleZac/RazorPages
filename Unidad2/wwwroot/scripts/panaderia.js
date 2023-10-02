@@ -68,5 +68,12 @@ botonera.addEventListener("click", function (e) {
     }  
 },true);
 
+boton.addEventListener("click", function () {
+    tabla.innerHTML = null;
+    boton.value = "Cobrar: $0.00";
+    saldo = 0;
+});
+
+
 descargarProductos();
 
