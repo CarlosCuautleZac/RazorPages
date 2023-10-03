@@ -1,0 +1,52 @@
+﻿@page "/encuesta/resultados"
+@model Unidad2.pages.encuesta.resultados2Model
+@{
+    Layout = "_Layout";
+}
+
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['bar'], 'language': 'es' });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Año', 'Ventas', 'Gastos', 'Ganancias'],
+                ['2014', 1000, 400, 200],
+                ['2015', 1170, 460, 250],
+                ['2016', 660, 1120, 300],
+                ['2017', 1030, 540, 350]
+            ]);
+
+            var options = {
+                chart: {
+                    title: 'Rendimiento de la compañia',
+                    subtitle: 'Ventas, Gastos y Ganancias: 2014-2017',
+                },
+                bars: 'horizontal'
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('chart'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
+</head>
+<body>
+    <main>
+        <h1>Resultados de la encuesta de satisfacción</h1>
+        <section class="resultados">
+            <div id="chart"></div>
+            <div>
+                <h2>Total de encuestas:</h2>
+                <p>10</p>
+                <h2>Puntuación del cliente:</h2>
+                <p>10</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
+

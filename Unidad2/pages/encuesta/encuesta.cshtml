@@ -1,0 +1,31 @@
+﻿@page "/encuesta/encuesta"
+@model Unidad2.pages.encuesta.encuestaModel
+@{
+    Layout = "_Layout";
+}
+
+
+<h1>Encuesta de Satisfacción</h1>
+
+<p id="loader">
+    <img height="50" src="https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif" />
+</p>
+
+<p id="pregunta">
+    ¿Para qué sirve hacer encuestas de satisfacción del cliente?
+</p>
+<div class="escala">
+    <img class="muymalo" src="~/img/muymalo.png" />
+    <img class="malo" src="~/img/malo.png" />
+    <img class="regular" src="~/img/regular.png" />
+    <img class="bueno" src="~/img/bueno.png" />
+    <img class="excelente" src="~/img/excelente.png" />
+    <label>Muy malo</label>
+    <label>Malo</label>
+    <label>Regular</label>
+    <label>Bueno</label>
+    <label>Excelente</label>
+</div>
+<input id="btn" type="button" value="SIGUIENTE" />
+
+<script src="~/scripts/encuesta.js"></script>
