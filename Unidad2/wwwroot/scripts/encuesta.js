@@ -3,9 +3,8 @@ const escala = document.querySelector(".escala");
 const boton = document.querySelector("#btn");
 const loader = document.querySelector("#loader");
 
-
 var basUrl = "https://integracion.itesrc.net/api/encuesta";
-var listaPreguntas = null, actual, seleccionado;
+var listaPreguntas = null, actual, seleccionado, respuestas = [];
 
 pregunta.hidden = true;
 escala.style.display = 'none';
@@ -34,6 +33,10 @@ function mostrarPregunta() {
     let objeto = listaPreguntas[actual];
     pregunta.textContent = objeto.pregunta;
 
+    if (seleccionado) {
+        seleccionado.classList.remove("selected");
+        seleccionado = null;
+    }
 
 };
 
@@ -44,6 +47,41 @@ escala.addEventListener("click", function (e) {
         }
         e.target.classList.add("selected");
         seleccionado = e.target;
+    }
+});
+
+
+boton.addEventListener("click", function () {
+    //Verificar que selecciono algo
+    if (seleccionado) {
+        let respuesta = {
+            idPregunta: listaPreguntas[actual].id,
+            valor: seleccionado.dataset.valor
+        }
+        console.log(respuesta);
+        respuestas.push(respuesta);
+        //verificar si quedan preguntas
+        if (actual < listaPreguntas.length - 1) {
+            actual++;
+            mostrarPregunta();
+
+            boton.value = actual == listaPreguntas.length - 1 ? "TERMINAR" : "SIGUIENTE";
+        }
+        else {//Termino
+            console.log(respuestas);
+
+            //mostrar controles
+            pregunta.hidden = true;
+            escala.style.display = "none";
+            boton.hidden = true;
+            loader.hidden = false;
+
+            let response = fetch();
+
+        }
+    }
+    else {
+        alert("Debes seleccionar una respuesta para continuar");
     }
 });
 
