@@ -7,9 +7,39 @@
 <html>
 <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+</head>
+<body>
+    <main>
+        <h1>Resultados de la encuesta de satisfacción</h1>
+        <section class="resultados">
+            <div id="chart"></div>
+            <div>
+                <h2>Total de encuestas:</h2>
+                <p id="total">0</p>
+                <h2>Puntuación del cliente:</h2>
+                <p id="puntuacion">0</p>
+            </div>
+        </section>
+    </main>
+
+
+    <script>
+
+        const baseUrl = "https://integracion.itesrc.net/api/encuesta/resultados";
+
+        async function descargarResultados(){
+            let response = await fetch(baseUrl);
+            if(response.ok){
+                let resultados = await response.json();
+                //console.log(resultados);
+                document.getElementById("total").textContent = resultados.totalEncuestas;
+                document.getElementById("puntuacion").textContent = resultados.puntuacion.toFixed(2);
+            }
+        };
+
+       
         google.charts.load('current', { 'packages': ['bar'], 'language': 'es' });
-        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(descargarResultados);
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
@@ -32,21 +62,11 @@
 
             chart.draw(data, google.charts.Bar.convertOptions(options));
         }
+
+
+        
+
     </script>
-</head>
-<body>
-    <main>
-        <h1>Resultados de la encuesta de satisfacción</h1>
-        <section class="resultados">
-            <div id="chart"></div>
-            <div>
-                <h2>Total de encuestas:</h2>
-                <p>10</p>
-                <h2>Puntuación del cliente:</h2>
-                <p>10</p>
-            </div>
-        </section>
-    </main>
 </body>
 </html>
 

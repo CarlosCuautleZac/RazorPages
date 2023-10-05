@@ -38,7 +38,7 @@ function mostrarPregunta() {
         seleccionado = null;
     }
 
-};
+};7
 
 escala.addEventListener("click", function (e) {
     if (e.target.tagName == "IMG") {
@@ -51,11 +51,11 @@ escala.addEventListener("click", function (e) {
 });
 
 
-boton.addEventListener("click", function () {
+boton.addEventListener("click", async function () {
     //Verificar que selecciono algo
     if (seleccionado) {
         let respuesta = {
-            idPregunta: listaPreguntas[actual].id,
+            id: listaPreguntas[actual].id,
             valor: seleccionado.dataset.valor
         }
         console.log(respuesta);
@@ -76,7 +76,17 @@ boton.addEventListener("click", function () {
             boton.hidden = true;
             loader.hidden = false;
 
-            let response = fetch();
+            let response = await fetch(basUrl, {
+                method: "post",
+                body: JSON.stringify(respuestas),
+                headers: {
+                    "Content-Type": "application/json"
+                }  
+            });
+
+            if (response.ok) {
+                window.location.href = "/encuesta/agradecimiento";
+            }
 
         }
     }
