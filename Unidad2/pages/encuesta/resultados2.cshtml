@@ -27,33 +27,40 @@
 
         const baseUrl = "https://integracion.itesrc.net/api/encuesta/resultados";
 
-        async function descargarResultados(){
+        async function descargarResultados() {
             let response = await fetch(baseUrl);
-            if(response.ok){
+            if (response.ok) {
                 let resultados = await response.json();
                 //console.log(resultados);
                 document.getElementById("total").textContent = resultados.totalEncuestas;
                 document.getElementById("puntuacion").textContent = resultados.puntuacion.toFixed(2);
+
+                let criterios = ["Criterios", ...resultados.criterios.map(x => x.criterio)];
+                let excelente = ["Excelente", ...resultados.criterios.map(x => x.excelente)];
+                let bueno = ["Bueno", ...resultados.criterios.map(x => x.bueno)];
+                let regular = ["Regular", ...resultados.criterios.map(x => x.regular)];
+                let malo = ["Malo", ...resultados.criterios.map(x => x.malo)];
+                let muy_malo = ["Muy malo", ...resultados.criterios.map(x => x.muyMalo)];
+
+                let datos = [criterios, excelente, bueno, regular, malo, muy_malo];
+                //console.log(excelente);
+                //console.log(resultados);
+                //console.log(datos);
+                drawChart(datos);
             }
         };
 
-       
+
         google.charts.load('current', { 'packages': ['bar'], 'language': 'es' });
         google.charts.setOnLoadCallback(descargarResultados);
 
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Año', 'Ventas', 'Gastos', 'Ganancias'],
-                ['2014', 1000, 400, 200],
-                ['2015', 1170, 460, 250],
-                ['2016', 660, 1120, 300],
-                ['2017', 1030, 540, 350]
-            ]);
+        function drawChart(datos) {
+            var data = google.visualization.arrayToDataTable(datos);
 
             var options = {
                 chart: {
-                    title: 'Rendimiento de la compañia',
-                    subtitle: 'Ventas, Gastos y Ganancias: 2014-2017',
+                    title: 'Rendimiento de la encuesta',
+                    subtitle: 'Agrupada por criterios',
                 },
                 bars: 'horizontal'
             };
@@ -64,7 +71,7 @@
         }
 
 
-        
+
 
     </script>
 </body>
