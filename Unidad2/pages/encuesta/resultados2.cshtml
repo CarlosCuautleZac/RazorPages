@@ -22,13 +22,19 @@
         </section>
     </main>
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script>
 
         const baseUrl = "https://integracion.itesrc.net/api/encuesta/resultados";
 
         async function descargarResultados() {
-            let response = await fetch(baseUrl);
+
+            var opts = {
+                headers: {
+                    'mode': 'cors'
+                }
+            }
+            let response = await fetch(baseUrl, opts);
             if (response.ok) {
                 let resultados = await response.json();
                 //console.log(resultados);
@@ -68,7 +74,36 @@
             var chart = new google.charts.Bar(document.getElementById('chart'));
 
             chart.draw(data, google.charts.Bar.convertOptions(options));
-        }
+
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl("https://integracion.itesrc.net/encuestaHub")
+                .configureLogging(signalR.LogLevel.Information)
+                .build();
+
+            async function start() {
+                try {
+                    await connection.start();
+                    console.log("SignalR Connected.");
+                } catch (err) {
+                    console.log(err);
+                    setTimeout(start, 5000);
+                }
+            };
+
+            connection.onclose(async () => {
+                await start();
+            });
+
+
+            connection.on("encuestaRealizada", () => {
+                console.log("encuesta realizada");
+                descargarResultados();
+            });
+
+
+            // Start the connection.
+            start();
+        };
 
 
 

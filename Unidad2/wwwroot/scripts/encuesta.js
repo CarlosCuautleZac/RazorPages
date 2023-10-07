@@ -12,7 +12,12 @@ boton.hidden = true;
 
 
 async function descargarEncuesta() {
-    let response = await fetch(basUrl);
+    var opts = {
+        headers: {
+            'mode': 'cors'
+        }
+    }
+    let response = await fetch(basUrl,opts);
     if (response.ok) {
         listaPreguntas = await response.json();
         actual = 0;
