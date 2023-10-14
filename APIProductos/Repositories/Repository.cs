@@ -35,7 +35,7 @@ namespace APIProductos.Repositories
             Context.SaveChanges();
         }
 
-        public virtual void Delete(object id)
+        public virtual void Delete(T id)
         {
             Context.Remove(id); Context.SaveChanges();
         }

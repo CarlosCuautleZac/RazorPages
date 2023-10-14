@@ -15,7 +15,6 @@ namespace APIProductos.Repositories
 
         public override void Delete(Categorias entity)
         {
-
             if (Context.Productos2.Any(x => x.IdCategoria == entity.Id))
             {
                 throw new InvalidOperationException("no se puede eliminar una categoria que tiene productos");
