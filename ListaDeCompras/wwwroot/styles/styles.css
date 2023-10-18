@@ -1,0 +1,59 @@
+﻿html,body {
+    width:100%;
+    height:100%;
+    padding:0;
+    margin:0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    display:grid;
+    grid-template-rows:50px 1fr 100px;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    background-color:darkblue;
+}
+
+header h1{
+    margin:5px;
+    padding:0px;
+    color:white;
+    font-weight:lighter;
+    align-self:center;
+}
+
+header .toolbaritems{
+    margin:5px 20px;
+    display:flex;
+    gap:10px;
+}
+header a{
+    color:white; 
+    align-self:center;
+    font-size:large;
+}
+
+nav{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    background-color:darkblue;
+    color:white;
+    justify-items:center;
+    align-items:center;
+}
+
+nav a{
+    text-decoration:none;
+    color:white;
+    font-size:large;
+}
+
+nav a .fa{
+    display:block;
+    text-align:center;
+    font-size:larger;
+    margin-bottom:5px;
+}

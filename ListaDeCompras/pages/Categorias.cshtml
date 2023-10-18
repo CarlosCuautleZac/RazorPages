@@ -1,0 +1,39 @@
+﻿@page "/"
+@model ListaDeCompras.pages.CategoriasModel
+@{
+}
+
+<html>
+<head>
+    <title>Lista de compras</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/styles/styles.css" />
+</head>
+<body>
+    <header>
+        <h1>Lista de compras</h1>
+        <div class="toolbaritems">
+            <a href="javascript:">
+                <i class="fa fa-pencil"></i>
+            </a>
+            <a href="javascript:">
+                <i class="fa fa-trash"></i>
+            </a>
+        </div>
+    </header>
+    <main>
+        <ol>
+            <li>Abarrotes</li>
+            <li>Carnes frias</li>
+            <li>Fruteria</li>
+        </ol>
+
+        <button><i class="fa fa-plus"></i></button>
+    </main>
+    <nav>
+        <a href="javascript:"><i class="fa fa-shopping-cart">Lista de compras</i></a>
+        <a href="javascript:"><i class="fa fa-shopping-basket">Productos</i></a>
+        <a href="javascript:"><i class="fa fa-list-ul">Categorias</i></a>
+    </nav>
+</body>
+</html>
