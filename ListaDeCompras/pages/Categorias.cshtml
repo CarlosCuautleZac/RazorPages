@@ -23,9 +23,9 @@
     </header>
     <main>
         <ol>
-            <li>Abarrotes</li>
+          @*   <li>Abarrotes</li>
             <li class="selected">Carnes frias</li>
-            <li>Fruteria</li>
+            <li>Fruteria</li> *@
         </ol>
 
         <button class="fab"><i class="fa fa-plus"></i></button>
@@ -35,5 +35,103 @@
         <a href="javascript:"><i class="fa fa-shopping-basket">Productos</i></a>
         <a href="javascript:"><i class="fa fa-list-ul">Categorias</i></a>
     </nav>
+
+    <div class="modal">
+        <form id="formAgregar" method="post" action="https://integracion.itesrc.net/api/categorias">
+            <h1>Agregar categoria</h1>
+            <label>Nombre de la categoria:</label>
+            <input required name="nombre" type="text"/>
+            <p class="error"></p>
+            <div class="botones">
+                <input type="submit" value="Agregar"/>
+                <input type="button" value="Cancelar" />
+            </div>
+        </form>
+    </div>
+
+    <div class="modal">
+        <form id="formEditar">
+            <h1>Editar categoria</h1>
+            <label>Nombre de la categoria:</label>
+            <input type="text" />
+            <p class="error">Un mensaje de error</p>
+            <div class="botones">
+                <input type="button" value="Guardar" />
+                <input type="button" value="Cancelar" />
+            </div>
+        </form>
+    </div>
+
+    <div class="modal">
+        <form id="formEliminar">
+            <h1>Eliminar categoria</h1>
+            <label>Nombre de la categoria:</label>
+            <input type="text" readonly/>
+            <p class="error">Un mensaje de error</p>
+            <div class="botones">
+                <input type="button" value="Si" />
+                <input type="button" value="No" />
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const fab = document.querySelector(".fab");
+        const formAgregar = document.querySelector("#formAgregar");
+
+        fab.addEventListener("click", function () {
+            formAgregar.parentElement.classList.add("visible");
+        });
+
+        document.body.addEventListener("click", function (e) {
+            if(e.target.tagName == "INPUT" && (e.target.value == "Cancelar" || e.target.value=="No")){
+                e.target.closest(".modal").classList.remove("visible");
+                e.target.form.reset();
+            }
+        });
+
+        //AJAX: Asynchronous Javascript and XML
+        document.addEventListener("submit", async function (x) {
+            
+            let form = x.target;
+            x.preventDefault();//Cancelo la ejecucuib sincrona
+            console.log(form.id);
+            if (form.id == formAgregar.id) {
+                
+                let objeto = { "nombre": form.elements.nombre.value };
+                let reposnse = await fetch(form.action,{
+                    method: form.method,
+                    body: JSON.stringify(objeto),
+                    headers: {
+                        "content-type": "application/json"
+                    }
+                });
+
+                if (reposnse.ok) //lo agrego
+                {
+                    form.parentElement.classList.remove("visible");
+                    form.reset();
+                    await actualizarLista();
+                }
+                else if (reposnse.statu == 400) 
+                {
+                    let json = await response.json();
+                    form.querySelector(".error").textContent = json.message;
+                }
+                else 
+                {
+                    console.log(reposnse);
+                }
+            
+            }
+        });
+
+
+        async function actualizarLista() {
+            console.log("agregado");
+        }
+
+    </script>
+
 </body>
 </html>

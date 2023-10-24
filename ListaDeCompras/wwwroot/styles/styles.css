@@ -110,3 +110,67 @@ main{
     width:60px;
     height:60px;
 }
+
+.modal, .modalEliminar {
+    width: calc(100%-20px);
+    max-width:600px;
+    height: 90%;
+    position: fixed;
+    top: 51px;
+    /*left: 100%;*/
+    right:-100%;
+    z-index: 10;
+    background: white;
+    padding: 10px;
+    transition:.2S all ease-in-out;
+}
+
+@keyframes animation1{
+    0% {
+        outline: 0 solid #00000050;
+    }
+    100% {
+        outline: 10000px solid #00000050;
+        right:0;
+    }
+}
+
+    .modal.visible, .modal.modalEliminar.visible {
+       animation: animation1 1s both;
+    }
+
+.modal>label, .modal>input, .modalEliminar>label, .modalEliminar input{
+    display:block;
+}
+
+.modal label, .modalEliminar label{
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
+.modal p.error, .modalEliminar p.error{
+    text-align:center;
+    padding:10px;
+    color:red;
+    font-size:small;
+}
+
+.modal .botones, .modalEliminar .botones{
+    position:absolute;
+    width:100%;
+    bottom:10px;
+    right:10px;
+    text-align:right;
+
+}
+
+.modal .botones input, .modalEliminar .botones input{
+    display:inline-block;
+    padding:10px 30px;
+    width:auto;
+    background-color:darkblue;
+    color:white;
+    border:none;
+}
+
+
