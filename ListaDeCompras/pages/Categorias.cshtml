@@ -78,6 +78,7 @@
     <script>
         const fab = document.querySelector(".fab");
         const formAgregar = document.querySelector("#formAgregar");
+        const lista = document.querySelector("main ol");
 
         fab.addEventListener("click", function () {
             formAgregar.parentElement.classList.add("visible");
@@ -92,12 +93,12 @@
 
         //AJAX: Asynchronous Javascript and XML
         document.addEventListener("submit", async function (x) {
-            
             let form = x.target;
             x.preventDefault();//Cancelo la ejecucuib sincrona
             console.log(form.id);
             if (form.id == formAgregar.id) {
-                
+                form.querySelector(".error").textContent = null;
+
                 let objeto = { "nombre": form.elements.nombre.value };
                 let reposnse = await fetch(form.action,{
                     method: form.method,
@@ -113,10 +114,11 @@
                     form.reset();
                     await actualizarLista();
                 }
-                else if (reposnse.statu == 400) 
+                else if (reposnse.status == 400) 
                 {
-                    let json = await response.json();
-                    form.querySelector(".error").textContent = json.message;
+                    let text = await reposnse.text();
+                    console.log(text);
+                    form.querySelector(".error").textContent = text;
                 }
                 else 
                 {
@@ -128,8 +130,25 @@
 
 
         async function actualizarLista() {
-            console.log("agregado");
+            let response = await fetch("https://integracion.itesrc.net/api/categorias");
+            if (response.ok) {
+                let categorias = await response.json();
+                for (let i = lista.children.length; i < categorias.length; i++) {
+                    lista.append(document.createElement("LI"));               
+                }
+                for (let i = 0; i < categorias.length; i++) {
+                    // console.log(lista.chidren[i]);
+                    lista.children[i].textContent = categorias[i].nombre;
+                    lista.children[i].dataset.id = categorias[i].id;
+                }
+            }
         }
+
+        lista.addEventListener("click", function(e)){
+
+        }
+
+        actualizarLista();
 
     </script>
 

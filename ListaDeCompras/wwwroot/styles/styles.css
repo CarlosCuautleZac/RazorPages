@@ -36,6 +36,7 @@ header .toolbaritems{
     margin:5px 20px;
     display:flex;
     gap:10px;
+    visibility :hidden;
 }
 header a{
     color:white; 
@@ -95,12 +96,13 @@ ol li.selected{
 
 main{
     position:relative;
+    overflow:auto;
 }
 
 .fab{
-    position:absolute;
-    bottom:10px;
-    right:10px;
+    position:fixed;
+    bottom:110px;
+    right:20px;
     padding:10px;
     background-color:blueviolet;
     color:white;
