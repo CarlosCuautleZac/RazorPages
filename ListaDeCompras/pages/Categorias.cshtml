@@ -13,17 +13,13 @@
     <header>
         <h1>Lista de compras</h1>
         <div class="toolbaritems">
-            <a href="javascript:">
-                <i class="fa fa-pencil"></i>
-            </a>
-            <a href="javascript:">
-                <i class="fa fa-trash"></i>
-            </a>
+            <a href="javascript:"><i id="btnEditar" class="fa fa-pencil"></i></a>
+            <a href="javascript:"><i id="btnEliminar" class="fa fa-trash"></i></a>
         </div>
     </header>
     <main>
         <ol>
-          @*   <li>Abarrotes</li>
+            @*   <li>Abarrotes</li>
             <li class="selected">Carnes frias</li>
             <li>Fruteria</li> *@
         </ol>
@@ -40,10 +36,10 @@
         <form id="formAgregar" method="post" action="https://integracion.itesrc.net/api/categorias">
             <h1>Agregar categoria</h1>
             <label>Nombre de la categoria:</label>
-            <input required name="nombre" type="text"/>
+            <input required name="nombre" type="text" />
             <p class="error"></p>
             <div class="botones">
-                <input type="submit" value="Agregar"/>
+                <input type="submit" value="Agregar" />
                 <input type="button" value="Cancelar" />
             </div>
         </form>
@@ -63,13 +59,14 @@
     </div>
 
     <div class="modal">
-        <form id="formEliminar">
+        <form id="formEliminar" method="post" action="https://integracion.itesrc.net/api/categorias">
             <h1>Eliminar categoria</h1>
+            <input name="id" type="hidden" />
             <label>Nombre de la categoria:</label>
-            <input type="text" readonly/>
-            <p class="error">Un mensaje de error</p>
+            <input type="text" name="nombre" readonly />
+            <p class="error"></p>
             <div class="botones">
-                <input type="button" value="Si" />
+                <input type="submit" value="Si" />
                 <input type="button" value="No" />
             </div>
         </form>
@@ -78,14 +75,17 @@
     <script>
         const fab = document.querySelector(".fab");
         const formAgregar = document.querySelector("#formAgregar");
+        const formEliminar = document.querySelector("#formEliminar");
         const lista = document.querySelector("main ol");
+        var seleccionado = null;
+        const tbi = document.querySelector(".toolbaritems");
 
         fab.addEventListener("click", function () {
             formAgregar.parentElement.classList.add("visible");
         });
 
         document.body.addEventListener("click", function (e) {
-            if(e.target.tagName == "INPUT" && (e.target.value == "Cancelar" || e.target.value=="No")){
+            if (e.target.tagName == "INPUT" && (e.target.value == "Cancelar" || e.target.value == "No")) {
                 e.target.closest(".modal").classList.remove("visible");
                 e.target.form.reset();
             }
@@ -94,13 +94,13 @@
         //AJAX: Asynchronous Javascript and XML
         document.addEventListener("submit", async function (x) {
             let form = x.target;
+            form.querySelector(".error").textContent = null;
             x.preventDefault();//Cancelo la ejecucuib sincrona
             console.log(form.id);
             if (form.id == formAgregar.id) {
-                form.querySelector(".error").textContent = null;
 
                 let objeto = { "nombre": form.elements.nombre.value };
-                let reposnse = await fetch(form.action,{
+                let reposnse = await fetch(form.action, {
                     method: form.method,
                     body: JSON.stringify(objeto),
                     headers: {
@@ -114,27 +114,47 @@
                     form.reset();
                     await actualizarLista();
                 }
-                else if (reposnse.status == 400) 
-                {
+                else if (reposnse.status == 400) {
                     let text = await reposnse.text();
                     console.log(text);
                     form.querySelector(".error").textContent = text;
                 }
-                else 
-                {
+                else {
                     console.log(reposnse);
                 }
-            
+
+            }
+
+            if (form.id == formEliminar.id) {    
+                let response = await fetch(form.action + "/" + form.elements.id.value, {method:"delete"});
+
+                if (response.ok) //lo agrego
+                {
+                    form.parentElement.classList.remove("visible");
+                    form.reset();
+                    seleccionado = null;
+                    tbi.style.visibility = "hidden";
+                    await actualizarLista();
+                }
+                else if (response.status == 400) {
+                    let text = await reposnse.text();
+                    console.log(text);
+                    form.querySelector(".error").textContent = text;
+                }
+                else {
+                    console.log(response);
+                }
             }
         });
 
 
         async function actualizarLista() {
+            console.log("se actualizara");
             let response = await fetch("https://integracion.itesrc.net/api/categorias");
             if (response.ok) {
                 let categorias = await response.json();
                 for (let i = lista.children.length; i < categorias.length; i++) {
-                    lista.append(document.createElement("LI"));               
+                    lista.append(document.createElement("LI"));
                 }
                 for (let i = 0; i < categorias.length; i++) {
                     // console.log(lista.chidren[i]);
@@ -144,10 +164,31 @@
             }
         }
 
-        // lista.addEventListener("click", function(e)){
+        lista.addEventListener("click", function (e) {
+            if (e.target.tagName == "LI") {
+                if (seleccionado) {
+                    seleccionado.classList.remove("selected");
+                     tbi.style.visibility = "hidden";
+                }
+                if (seleccionado != e.target) {
+                    seleccionado = e.target;
+                    e.target.classList.add("selected");
+                    tbi.style.visibility = "visible";
+                }
+                else{
+                    seleccionado = null;
+                }
 
-        // }
+            }
+        });
 
+        document.getElementById("btnEliminar").addEventListener("click", function () {
+            
+            formEliminar.parentElement.classList.add("visible");
+            formEliminar.elements.nombre.value = seleccionado.textContent;
+            formEliminar.elements.id.value = seleccionado.dataset.id;
+        });
+         
         actualizarLista();
 
     </script>
