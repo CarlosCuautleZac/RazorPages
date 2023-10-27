@@ -46,13 +46,14 @@
     </div>
 
     <div class="modal">
-        <form id="formEditar">
-            <h1>Editar categoria</h1>
+        <form id="formEditar" method="post" action="https://integracion.itesrc.net/api/categorias">
+            <h1>Modificar categoria</h1>
             <label>Nombre de la categoria:</label>
-            <input type="text" />
-            <p class="error">Un mensaje de error</p>
+            <input name="id" type="hidden" />
+            <input name="nombre" required type="text" />
+            <p class="error"></p>
             <div class="botones">
-                <input type="button" value="Guardar" />
+                <input type="submit" value="Guardar" />
                 <input type="button" value="Cancelar" />
             </div>
         </form>
@@ -76,6 +77,7 @@
         const fab = document.querySelector(".fab");
         const formAgregar = document.querySelector("#formAgregar");
         const formEliminar = document.querySelector("#formEliminar");
+        const formEditar = document.querySelector("#formEditar");
         const lista = document.querySelector("main ol");
         var seleccionado = null;
         const tbi = document.querySelector(".toolbaritems");
@@ -112,6 +114,10 @@
                 {
                     form.parentElement.classList.remove("visible");
                     form.reset();
+                    if (seleccionado) {
+                        seleccionado.classList.remove("seleccionado");
+                        seleccionado = null;
+                    }
                     await actualizarLista();
                 }
                 else if (reposnse.status == 400) {
@@ -132,6 +138,7 @@
                 {
                     form.parentElement.classList.remove("visible");
                     form.reset();
+                    seleccionado.classList.remove("seleccionado");
                     seleccionado = null;
                     tbi.style.visibility = "hidden";
                     await actualizarLista();
@@ -145,6 +152,37 @@
                     console.log(response);
                 }
             }
+
+            if (form.id == formEditar.id) {
+
+                let objeto = { "id":form.elements.id.value, "nombre": form.elements.nombre.value };
+                let reposnse = await fetch(form.action, {
+                    method: "PUT",
+                    body: JSON.stringify(objeto),
+                    headers: {
+                        "content-type": "application/json"
+                    }
+                });
+
+                if (reposnse.ok) //lo agrego
+                {
+                    form.parentElement.classList.remove("visible");
+                    form.reset();
+                    if (seleccionado) {
+                        seleccionado.classList.remove("seleccionado");
+                        seleccionado = null;
+                    }
+                    await actualizarLista();
+                }
+                else if (reposnse.status == 400) {
+                    let text = await reposnse.text();
+                    console.log(text);
+                    form.querySelector(".error").textContent = text;
+                }
+                else {
+                    console.log(reposnse);
+                }
+            }
         });
 
 
@@ -153,9 +191,17 @@
             let response = await fetch("https://integracion.itesrc.net/api/categorias");
             if (response.ok) {
                 let categorias = await response.json();
+
+
                 for (let i = lista.children.length; i < categorias.length; i++) {
                     lista.append(document.createElement("LI"));
                 }
+
+                let resta = lista.children.length > categorias.length ? lista.children.length - categorias.length : 0;
+                for (let i = 0; i < resta; i++) {
+                    lista.lastElementChild.remove();
+                }
+
                 for (let i = 0; i < categorias.length; i++) {
                     // console.log(lista.chidren[i]);
                     lista.children[i].textContent = categorias[i].nombre;
@@ -187,6 +233,13 @@
             formEliminar.parentElement.classList.add("visible");
             formEliminar.elements.nombre.value = seleccionado.textContent;
             formEliminar.elements.id.value = seleccionado.dataset.id;
+        });
+
+        document.getElementById("btnEditar").addEventListener("click", function () {
+
+            formEditar.parentElement.classList.add("visible");
+            formEditar.elements.nombre.value = seleccionado.textContent;
+            formEditar.elements.id.value = seleccionado.dataset.id;
         });
          
         actualizarLista();
