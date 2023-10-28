@@ -11,6 +11,8 @@ namespace APIProductos.Models.DTOs
         [CategoriaNoRepetida]
         public string Nombre { get; set; } = null!;
 
+        public List<ProductoDTO>?Productos = null;
+
     }
 
 

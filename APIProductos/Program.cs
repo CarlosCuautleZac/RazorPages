@@ -11,6 +11,7 @@ optionsBuilder.UseMySql("server=204.93.216.11;database=itesrcne_integracion;user
 , Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.3.29-mariadb")));
 
 builder.Services.AddTransient<CategoriasRepository>();
+builder.Services.AddTransient<Productos2>();
 builder.Services.AddSignalR();
 
 var app = builder.Build();
