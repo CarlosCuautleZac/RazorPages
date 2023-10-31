@@ -1,78 +1,66 @@
-﻿@page "/"
+﻿@page "/categorias"
 @model ListaDeCompras.pages.CategoriasModel
 @{
+    Layout = "_Layout";
 }
 
-<html>
-<head>
-    <title>Lista de compras</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
-    <link rel="stylesheet" href="~/styles/styles.css" />
-</head>
-<body>
-    <header>
-        <h1>Lista de compras</h1>
-        <div class="toolbaritems">
-            <a href="javascript:"><i id="btnEditar" class="fa fa-pencil"></i></a>
-            <a href="javascript:"><i id="btnEliminar" class="fa fa-trash"></i></a>
+
+@section ToolBarItems{
+    <a href="javascript:"><i id="btnEditar" class="fa fa-pencil"></i></a>
+    <a href="javascript:"><i id="btnEliminar" class="fa fa-trash"></i></a>
+}
+
+
+
+<ol>
+    @*   <li>Abarrotes</li>
+    <li class="selected">Carnes frias</li>
+    <li>Fruteria</li> *@
+</ol>
+
+<button class="fab"><i class="fa fa-plus"></i></button>
+
+
+<div class="modal">
+    <form id="formAgregar" method="post" action="https://integracion.itesrc.net/api/categorias">
+        <h1>Agregar categoria</h1>
+        <label>Nombre de la categoria:</label>
+        <input required name="nombre" type="text" />
+        <p class="error"></p>
+        <div class="botones">
+            <input type="submit" value="Agregar" />
+            <input type="button" value="Cancelar" />
         </div>
-    </header>
-    <main>
-        <ol>
-            @*   <li>Abarrotes</li>
-            <li class="selected">Carnes frias</li>
-            <li>Fruteria</li> *@
-        </ol>
+    </form>
+</div>
+<div class="modal">
+    <form id="formEditar" method="post" action="https://integracion.itesrc.net/api/categorias">
+        <h1>Modificar categoria</h1>
+        <label>Nombre de la categoria:</label>
+        <input name="id" type="hidden" />
+        <input name="nombre" required type="text" />
+        <p class="error"></p>
+        <div class="botones">
+            <input type="submit" value="Guardar" />
+            <input type="button" value="Cancelar" />
+        </div>
+    </form>
+</div>
+<div class="modal">
+    <form id="formEliminar" method="post" action="https://integracion.itesrc.net/api/categorias">
+        <h1>Eliminar categoria</h1>
+        <input name="id" type="hidden" />
+        <label>Nombre de la categoria:</label>
+        <input type="text" name="nombre" readonly />
+        <p class="error"></p>
+        <div class="botones">
+            <input type="submit" value="Si" />
+            <input type="button" value="No" />
+        </div>
+    </form>
+</div>
 
-        <button class="fab"><i class="fa fa-plus"></i></button>
-    </main>
-    <nav>
-        <a href="javascript:"><i class="fa fa-shopping-cart">Lista de compras</i></a>
-        <a href="javascript:"><i class="fa fa-shopping-basket">Productos</i></a>
-        <a href="javascript:"><i class="fa fa-list-ul">Categorias</i></a>
-    </nav>
-
-    <div class="modal">
-        <form id="formAgregar" method="post" action="https://integracion.itesrc.net/api/categorias">
-            <h1>Agregar categoria</h1>
-            <label>Nombre de la categoria:</label>
-            <input required name="nombre" type="text" />
-            <p class="error"></p>
-            <div class="botones">
-                <input type="submit" value="Agregar" />
-                <input type="button" value="Cancelar" />
-            </div>
-        </form>
-    </div>
-
-    <div class="modal">
-        <form id="formEditar" method="post" action="https://integracion.itesrc.net/api/categorias">
-            <h1>Modificar categoria</h1>
-            <label>Nombre de la categoria:</label>
-            <input name="id" type="hidden" />
-            <input name="nombre" required type="text" />
-            <p class="error"></p>
-            <div class="botones">
-                <input type="submit" value="Guardar" />
-                <input type="button" value="Cancelar" />
-            </div>
-        </form>
-    </div>
-
-    <div class="modal">
-        <form id="formEliminar" method="post" action="https://integracion.itesrc.net/api/categorias">
-            <h1>Eliminar categoria</h1>
-            <input name="id" type="hidden" />
-            <label>Nombre de la categoria:</label>
-            <input type="text" name="nombre" readonly />
-            <p class="error"></p>
-            <div class="botones">
-                <input type="submit" value="Si" />
-                <input type="button" value="No" />
-            </div>
-        </form>
-    </div>
-
+@section Scripts{
     <script>
         const fab = document.querySelector(".fab");
         const formAgregar = document.querySelector("#formAgregar");
@@ -131,8 +119,8 @@
 
             }
 
-            if (form.id == formEliminar.id) {    
-                let response = await fetch(form.action + "/" + form.elements.id.value, {method:"delete"});
+            if (form.id == formEliminar.id) {
+                let response = await fetch(form.action + "/" + form.elements.id.value, { method: "delete" });
 
                 if (response.ok) //lo agrego
                 {
@@ -155,7 +143,7 @@
 
             if (form.id == formEditar.id) {
 
-                let objeto = { "id":form.elements.id.value, "nombre": form.elements.nombre.value };
+                let objeto = { "id": form.elements.id.value, "nombre": form.elements.nombre.value };
                 let reposnse = await fetch(form.action, {
                     method: "PUT",
                     body: JSON.stringify(objeto),
@@ -214,14 +202,14 @@
             if (e.target.tagName == "LI") {
                 if (seleccionado) {
                     seleccionado.classList.remove("selected");
-                     tbi.style.visibility = "hidden";
+                    tbi.style.visibility = "hidden";
                 }
                 if (seleccionado != e.target) {
                     seleccionado = e.target;
                     e.target.classList.add("selected");
                     tbi.style.visibility = "visible";
                 }
-                else{
+                else {
                     seleccionado = null;
                 }
 
@@ -229,7 +217,7 @@
         });
 
         document.getElementById("btnEliminar").addEventListener("click", function () {
-            
+
             formEliminar.parentElement.classList.add("visible");
             formEliminar.elements.nombre.value = seleccionado.textContent;
             formEliminar.elements.id.value = seleccionado.dataset.id;
@@ -241,10 +229,9 @@
             formEditar.elements.nombre.value = seleccionado.textContent;
             formEditar.elements.id.value = seleccionado.dataset.id;
         });
-         
+
         actualizarLista();
 
     </script>
+}
 
-</body>
-</html>

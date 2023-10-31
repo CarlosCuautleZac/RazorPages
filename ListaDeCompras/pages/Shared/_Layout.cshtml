@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Lista de compras</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/styles/styles.css" />
+</head>
+<body>
+    <header>
+        <h1>@ViewData["NombrePagina"]</h1>
+        <div class="toolbaritems">
+            @RenderSection("ToolBarItems", false);
+        </div>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+    <nav>
+        <a href="~/Index"><i class="fa fa-shopping-cart">Lista de compras</i></a>
+        <a href="~/Productos"><i class="fa fa-shopping-basket">Productos</i></a>
+        <a href="~/Categorias"><i class="fa fa-list-ul">Categorias</i></a>
+    </nav>
+
+    <div class="modal">
+        <form id="formAgregar" method="post" action="https://integracion.itesrc.net/api/categorias">
+            <h1>Agregar categoria</h1>
+            <label>Nombre de la categoria:</label>
+            <input required name="nombre" type="text" />
+            <p class="error"></p>
+            <div class="botones">
+                <input type="submit" value="Agregar" />
+                <input type="button" value="Cancelar" />
+            </div>
+        </form>
+    </div>
+    <div class="modal">
+        <form id="formEditar" method="post" action="https://integracion.itesrc.net/api/categorias">
+            <h1>Modificar categoria</h1>
+            <label>Nombre de la categoria:</label>
+            <input name="id" type="hidden" />
+            <input name="nombre" required type="text" />
+            <p class="error"></p>
+            <div class="botones">
+                <input type="submit" value="Guardar" />
+                <input type="button" value="Cancelar" />
+            </div>
+        </form>
+    </div>
+    <div class="modal">
+        <form id="formEliminar" method="post" action="https://integracion.itesrc.net/api/categorias">
+            <h1>Eliminar categoria</h1>
+            <input name="id" type="hidden" />
+            <label>Nombre de la categoria:</label>
+            <input type="text" name="nombre" readonly />
+            <p class="error"></p>
+            <div class="botones">
+                <input type="submit" value="Si" />
+                <input type="button" value="No" />
+            </div>
+        </form>
+    </div>
+    
+    @RenderSection("scripts", false);
+
+</body>
+</html>

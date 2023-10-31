@@ -12,6 +12,7 @@ optionsBuilder.UseMySql("server=204.93.216.11;database=itesrcne_integracion;user
 
 builder.Services.AddTransient<CategoriasRepository>();
 builder.Services.AddTransient<Productos2>();
+builder.Services.AddTransient<ProductosRepository>();
 builder.Services.AddSignalR();
 
 var app = builder.Build();

@@ -94,6 +94,26 @@ ol li.selected{
     background-color:lightsteelblue;
 }
 
+.producto{
+    display:grid;
+    grid-template-columns:70px 1fr;
+    grid-template-rows:1fr 1fr;
+}
+
+.producto img{
+    max-width:50px;
+    grid-row:span 2;
+}
+
+.producto span:first-of-type{
+    font-weight:bold;
+}
+
+.categoria{
+    background-color:gainsboro;
+    font-weight:bold;
+}
+
 main{
     position:relative;
     overflow:auto;

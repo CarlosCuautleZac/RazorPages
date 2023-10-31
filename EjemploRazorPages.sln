@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unidad2", "Unidad2\Unidad2.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIProductos", "APIProductos\APIProductos.csproj", "{86CE7CE8-842B-4B47-8AC8-DD5DACBC8D8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListaDeCompras", "ListaDeCompras\ListaDeCompras.csproj", "{44DE4898-88CC-4A90-B05F-7F86A0FDB9D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListaDeCompras", "ListaDeCompras\ListaDeCompras.csproj", "{44DE4898-88CC-4A90-B05F-7F86A0FDB9D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

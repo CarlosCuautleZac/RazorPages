@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ListaDeCompras.pages
 {
-    public class CategoriasModel : PageModel
+    public class IndexModel : PageModel
     {
         public void OnGet()
         {
-            ViewData["NombrePagina"] = "Lista de categorias";
         }
     }
 }
