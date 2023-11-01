@@ -53,7 +53,7 @@
 <button class="fab"><i class="fa fa-plus"></i></button>
 
 
-<div class="modal" style="display:block">
+<div class="modal" >
     <form id="formAgregar" method="post" action="https://integracion.itesrc.net/api/productos">
         <h1>Agregar categoria</h1>
         <label>Nombre del producto:</label>
@@ -63,7 +63,10 @@
         <input name="precio" type="text" />
 
         <label>Fotografia</label>
-        <img />
+        <div class="foto">
+            <video></video>
+            <img />
+        </div>
         <a href="javascript:">Tomar fotografia</a>
 
 
@@ -80,7 +83,18 @@
         <h1>Modificar categoria</h1>
         <label>Nombre de la categoria:</label>
         <input name="id" type="hidden" />
-        <input name="nombre" required type="text" />
+        <label>Nombre del producto:</label>
+        <input required name="nombre" type="text" />
+
+        <label>Precio:</label>
+        <input name="precio" type="text" />
+
+        <label>Fotografia</label>
+        <div class="foto">
+            <video></video>
+            <img />
+        </div>
+        <a href="javascript:">Tomar fotografia</a>
         <p class="error"></p>
         <div class="botones">
             <input type="submit" value="Guardar" />
@@ -91,9 +105,9 @@
 
 <div class="modal">
     <form id="formEliminar" method="post" action="https://integracion.itesrc.net/api/productos">
-        <h1>Eliminar categoria</h1>
+        <h1>Eliminar producto</h1>
         <input name="id" type="hidden" />
-        <label>Nombre de la categoria:</label>
+        <label>Nombre del producto:</label>
         <input type="text" name="nombre" readonly />
         <p class="error"></p>
         <div class="botones">

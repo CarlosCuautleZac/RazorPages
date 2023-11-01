@@ -196,3 +196,29 @@ main{
 }
 
 
+.foto{
+    width:500px;
+    height:300px;
+    margin:auto;
+}
+
+    .foto video {
+        width: 500px;
+        height: 300px;
+        display:none;
+    }
+
+    .foto img {
+        width: 500px;
+        height: 300px;
+        display: block;
+    }
+
+
+    .foto.capturando video {
+        display: block;
+    }
+
+    .foto.capturando img{
+        display:none;
+    }
