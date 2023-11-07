@@ -6,46 +6,46 @@
 }
 
 <ol>
-    <li class="categoria">Abarrotes</li>
+    @*     <li class="categoria">Abarrotes</li>
     <li>
-        <div class="producto">
-            <img src="https://m.media-amazon.com/images/I/71tgjg3DjyL.__AC_SX300_SY300_QL70_ML2_.jpg" />
-            <span>Lata de atún</span>
-            <span>$18.00</span>
-        </div>
+    <div class="producto">
+    <img src="https://m.media-amazon.com/images/I/71tgjg3DjyL.__AC_SX300_SY300_QL70_ML2_.jpg" />
+    <span>Lata de atún</span>
+    <span>$18.00</span>
+    </div>
     </li>
 
     <li>
-        <div class="producto">
-            <img src="https://m.media-amazon.com/images/I/71tgjg3DjyL.__AC_SX300_SY300_QL70_ML2_.jpg" />
-            <span>Lata de atún</span>
-            <span>$18.00</span>
-        </div>
+    <div class="producto">
+    <img src="https://m.media-amazon.com/images/I/71tgjg3DjyL.__AC_SX300_SY300_QL70_ML2_.jpg" />
+    <span>Lata de atún</span>
+    <span>$18.00</span>
+    </div>
     </li>
     <li>
-        <div class="producto">
-            <img src="https://m.media-amazon.com/images/I/71tgjg3DjyL.__AC_SX300_SY300_QL70_ML2_.jpg" />
-            <span>Lata de atún</span>
-            <span>$18.00</span>
-        </div>
+    <div class="producto">
+    <img src="https://m.media-amazon.com/images/I/71tgjg3DjyL.__AC_SX300_SY300_QL70_ML2_.jpg" />
+    <span>Lata de atún</span>
+    <span>$18.00</span>
+    </div>
     </li>
     <li>
-        <div class="producto">
-            <img src="https://m.media-amazon.com/images/I/71tgjg3DjyL.__AC_SX300_SY300_QL70_ML2_.jpg" />
-            <span>Lata de atún</span>
-            <span>$18.00</span>
-        </div>
+    <div class="producto">
+    <img src="https://m.media-amazon.com/images/I/71tgjg3DjyL.__AC_SX300_SY300_QL70_ML2_.jpg" />
+    <span>Lata de atún</span>
+    <span>$18.00</span>
+    </div>
     </li>
 
 
     <li class="categoria">Tilin</li>
     <li>
-        <div class="producto">
-            <img src="https://m.media-amazon.com/images/I/71tgjg3DjyL.__AC_SX300_SY300_QL70_ML2_.jpg" />
-            <span>Lata de atún</span>
-            <span>$18.00</span>
-        </div>
-    </li>
+    <div class="producto">
+    <img src="https://m.media-amazon.com/images/I/71tgjg3DjyL.__AC_SX300_SY300_QL70_ML2_.jpg" />
+    <span>Lata de atún</span>
+    <span>$18.00</span>
+    </div>
+    </li> *@
 
 </ol>
 
@@ -53,21 +53,26 @@
 <button class="fab"><i class="fa fa-plus"></i></button>
 
 
-<div class="modal" >
+<div class="modal">
     <form id="formAgregar" method="post" action="https://integracion.itesrc.net/api/productos">
-        <h1>Agregar categoria</h1>
+        <h1>Agregar Productos</h1>
         <label>Nombre del producto:</label>
         <input required name="nombre" type="text" />
 
         <label>Precio:</label>
         <input name="precio" type="text" />
 
+        <label>Categoria:</label>
+        <select name="IdCategoria" required>
+            <option value="">Selecciona</option>
+        </select>
+
         <label>Fotografia</label>
         <div class="foto">
-            <video></video>
-            <img />
+            <video onclick="tomarFoto()"></video>
+            <img onclick="activarCamara()" />
         </div>
-        <a href="javascript:">Tomar fotografia</a>
+        @*    <a href="javascript:tomarFoto()">Tomar fotografia</a> *@
 
 
         <p class="error"></p>
@@ -94,7 +99,7 @@
             <video></video>
             <img />
         </div>
-        <a href="javascript:">Tomar fotografia</a>
+        <a href="javascript:tomarFoto()">Tomar fotografia</a>
         <p class="error"></p>
         <div class="botones">
             <input type="submit" value="Guardar" />
@@ -116,3 +121,100 @@
         </div>
     </form>
 </div>
+
+<script>
+
+    const formAgregar = document.getElementById("formAgregar");
+    let listaCategorias;
+
+    document.querySelector(".fab").addEventListener("click", function () {
+        formAgregar.parentElement.classList.add("visible");
+        if (!listaCategorias) {
+            descargarCategorias();
+        }
+
+    });
+
+    document.body.addEventListener("click", function (e) {
+        if (e.target.tagName == "INPUT" && (e.target.value == "Cancelar" || e.target.value == "No")) {
+            e.target.closest(".modal").classList.remove("visible");
+            e.target.form.reset();
+        }
+    });
+
+    async function descargarCategorias() {
+        let response = await fetch("https://integracion.itesrc.net/api/categorias");
+        if (response.ok) {
+            listaCategorias = await response.json();
+            console.log(listaCategorias);
+            listaCategorias.forEach(x => {
+                let op = document.createElement("OPTION");
+                op.textContent = x.nombre;
+                op.value = x.id;
+                formAgregar.elements.IdCategoria.append(op);
+            });
+        }
+    }
+
+    let foto = formAgregar.querySelector(".foto");
+    let video = foto.querySelector("video");
+    let img = foto.querySelector("img");
+    let camara;
+    async function activarCamara() {
+        camara = await navigator.mediaDevices.getUserMedia({ video: true });
+
+        foto.classList.add("capturando");
+        video.srcObject = camara;
+        video.play();
+    }
+
+    async function tomarFoto() {
+        let canvas = document.createElement("CANVAS");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
+        img.src = canvas.toDataURL("image/jpeg");
+
+        video.pause();
+        foto.classList.remove("capturando");
+        camara.getTracks().forEach(x => x.stop());
+    }
+
+
+    document.addEventListener("submit", async function (event) {
+        event.preventDefault();//Cancelo la ejecucuib sincrona
+        let form = event.target;
+        form.querySelector(".error").textContent = null;
+        if (event.target == formAgregar)
+        {
+            let json =
+            {
+                nombre: formAgregar.elements.nombre.value,
+                precio: formAgregar.elements.precio.value || null,
+                idcategoria: formAgregar.elements.IdCategoria.value
+            };
+
+            let response = await fetch(form.action, {
+                method: form.method,
+                body: JSON.stringify(json),
+                headers: {
+                    "content-type": "application/json"
+                }
+            });
+
+            if (response.ok) {
+            let idobj = await response.json();
+            console.log(idobj);
+            }
+              else {
+            let error = await response.text();
+            formAgregar.querySelector(".error").textContent = error;
+         }
+        
+        }
+        });
+
+
+        
+
+</script>

@@ -161,8 +161,9 @@ main{
        animation: animation1 1s both;
     }
 
-.modal>label, .modal>input, .modalEliminar>label, .modalEliminar input{
+.modal label, .modal input, .modalEliminar label, .modalEliminar input, .modal select{
     display:block;
+    width:100%;
 }
 
 .modal label, .modalEliminar label{
