@@ -72,6 +72,8 @@
             <video onclick="tomarFoto()"></video>
             <img onclick="activarCamara()" />
         </div>
+
+        <input type="file" name="archivo" accept="image/jpeg" oninput="seleccionarFoto()" />
         @*    <a href="javascript:tomarFoto()">Tomar fotografia</a> *@
 
 
@@ -181,12 +183,20 @@
     }
 
 
+    async function seleccionarFoto(){
+        let archivo = formAgregar.elements.archivo;
+        if (archivo.files) {
+            const reader = new FileReader();
+           let datosBase64 = await reader.readAsDataURL(archivo.files[0]);
+            console.log(datosBase64);
+        }
+    }
+
     document.addEventListener("submit", async function (event) {
         event.preventDefault();//Cancelo la ejecucuib sincrona
         let form = event.target;
         form.querySelector(".error").textContent = null;
-        if (event.target == formAgregar)
-        {
+        if (event.target == formAgregar) {
             let json =
             {
                 nombre: formAgregar.elements.nombre.value,
@@ -203,18 +213,38 @@
             });
 
             if (response.ok) {
-            let idobj = await response.json();
-            console.log(idobj);
+                let idobj = await response.json();
+                console.log(idobj);
+                if (img.src) {
+                    let imgjson = { id: idobj, imagenBase64: img.src.replace("data:image/jpg;base64,", "") };
+
+                    let response = await fetch(form.action + "/imagen", {
+                        method: form.method,
+                        body: JSON.stringify(imgjson),
+                        headers: {
+                            "content-type": "application/json"
+                        }
+                    });
+
+                    if (!response.ok) {
+                        let error = await response.text();
+                        formAgregar.querySelector(".error").textContent = error;
+                    }
+                    else {
+                        let error = await response.text();
+                        formAgregar.querySelector(".error").textContent = error;
+                    }
+
+                    //recargar la lista
+                    console.log("carga exitosa")
+                }
+
+
             }
-              else {
-            let error = await response.text();
-            formAgregar.querySelector(".error").textContent = error;
-         }
-        
         }
-        });
+    });
 
 
-        
+
 
 </script>
