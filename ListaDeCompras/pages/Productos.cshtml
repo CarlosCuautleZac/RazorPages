@@ -187,8 +187,11 @@
         let archivo = formAgregar.elements.archivo;
         if (archivo.files) {
             const reader = new FileReader();
-           let datosBase64 = await reader.readAsDataURL(archivo.files[0]);
-            console.log(datosBase64);
+            reader.addEventListener("load", function (e) {
+                img.src = e.currentTarget.result;
+            });
+
+            reader.readAsDataURL(archivo.files[0]);
         }
     }
 
@@ -216,7 +219,7 @@
                 let idobj = await response.json();
                 console.log(idobj);
                 if (img.src) {
-                    let imgjson = { id: idobj, imagenBase64: img.src.replace("data:image/jpg;base64,", "") };
+                    let imgjson = { id: idobj, imagenBase64: img.src.replace("data:image/jpeg;base64,", "") };
 
                     let response = await fetch(form.action + "/imagen", {
                         method: form.method,
