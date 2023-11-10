@@ -248,6 +248,14 @@
     });
 
 
+   async function actualizar(){
+        let response = await fetch("https://integracion.itesrc.net/api/productos");
+        if(response.ok){
+            let datos = await response.json();
+            console.log(datos);
+        }
+    };
 
+    actualizar();
 
 </script>
