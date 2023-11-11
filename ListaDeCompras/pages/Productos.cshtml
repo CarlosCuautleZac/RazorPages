@@ -124,10 +124,20 @@
     </form>
 </div>
 
+<template id="plantillas">
+    <div class="producto">
+        <img class="img" src="$" />
+        <span class="nombre" >Lata de atún</span>
+        <span class="precio">$18.00</span>
+    </div>
+</template>
+
 <script>
 
     const formAgregar = document.getElementById("formAgregar");
     let listaCategorias;
+    const lista = document.querySelector("OL");
+    const plantilla = document.querySelector("#plantillas");
 
     document.querySelector(".fab").addEventListener("click", function () {
         formAgregar.parentElement.classList.add("visible");
@@ -183,7 +193,7 @@
     }
 
 
-    async function seleccionarFoto(){
+    async function seleccionarFoto() {
         let archivo = formAgregar.elements.archivo;
         if (archivo.files) {
             const reader = new FileReader();
@@ -248,11 +258,27 @@
     });
 
 
-   async function actualizar(){
+    async function actualizar() {
         let response = await fetch("https://integracion.itesrc.net/api/productos");
-        if(response.ok){
+        if (response.ok) {
             let datos = await response.json();
-            console.log(datos);
+
+            lista.replaceChildren();
+            for (let cat of datos) {
+                let liCat = document.createElement("LI");
+                liCat.textContent = cat.nombre
+                liCat.classList.add("categoria");
+                lista.append(liCat);
+
+                for(let pro of cat.productos){
+                    let clon = plantilla.content.firstElementChild.cloneNode(true); // tambien plantilla.children[0];
+                    clon.querySelector(".nombre").textContent = pro.nombre;
+                    if(pro.precio)
+                    clon.querySelector(".precio").textContent = "$"+pro.precio.toFixed(2);
+                    clon.querySelector(".img").src = "https://integracion.itesrc.net/productos/" + pro.id + ".jpg";
+                    lista.append(clon);
+                }
+            }
         }
     };
 

@@ -10,8 +10,7 @@ namespace APIProductos.Models.DTOs
         [MaxLength(100, ErrorMessage = "El nombre de la categoria no debe exceder de 100 caracteres.")]
         [CategoriaNoRepetida]
         public string Nombre { get; set; } = null!;
-
-        public List<ProductoDTO>?Productos = null;
+        public List<ProductoDTO>? Productos { get; set; } = null;
 
     }
 
