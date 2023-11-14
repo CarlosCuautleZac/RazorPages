@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIProductos", "APIProducto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListaDeCompras", "ListaDeCompras\ListaDeCompras.csproj", "{44DE4898-88CC-4A90-B05F-7F86A0FDB9D5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unidad3", "Unidad3", "{C6EA4411-60AE-4226-9885-29C8F0E0AF42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SumandoNumeros", "SumandoNumeros\SumandoNumeros.csproj", "{05E6E4CE-B346-46D3-8240-FFAF143C2ACC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,9 +37,16 @@ Global
 		{44DE4898-88CC-4A90-B05F-7F86A0FDB9D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44DE4898-88CC-4A90-B05F-7F86A0FDB9D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44DE4898-88CC-4A90-B05F-7F86A0FDB9D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05E6E4CE-B346-46D3-8240-FFAF143C2ACC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05E6E4CE-B346-46D3-8240-FFAF143C2ACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05E6E4CE-B346-46D3-8240-FFAF143C2ACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05E6E4CE-B346-46D3-8240-FFAF143C2ACC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{05E6E4CE-B346-46D3-8240-FFAF143C2ACC} = {C6EA4411-60AE-4226-9885-29C8F0E0AF42}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {29415F51-0721-4370-9344-7CCFE22B5518}
