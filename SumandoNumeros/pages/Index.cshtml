@@ -25,18 +25,31 @@
 
             <label>Resultado</label>
             <input type="text" readonly name="resultado" />
+            <progress max="100" value="0"></progress><span>0 de 0</span>
         </form>
     </main>
 
     <script>
 
+        let porcentaje = 0;
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register("/serviceworker.js");
+            const canal = new BroadcastChannel("progreso");
+
+            canal.addEventListener("message", function(mensaje){
+                progress.max = mensaje.data.total;
+                progress.value = mensaje.data.avance;
+                span.textContent = mensaje.data.avance + " de " + mensaje.data.total;
+            });
         }
 
 
         const form = document.querySelector("FORM");
         const btn = document.querySelector("input[type=button]");
+        const progress = document.querySelector("progress");
+        const span = document.querySelector("span")
+
+
 
         btn.addEventListener("click", function () {
             form.elements.resultado.value = 
