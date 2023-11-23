@@ -1,0 +1,41 @@
+﻿@page "/conectar"
+@model SumandoNumeros.pages.ConectarAPIModel
+@{
+}
+
+<html>
+    <head>
+        <title>Conectar una API</title>
+    </head>
+    <body>
+        <h1>Lista de categorias</h1>
+
+        <ul>
+
+        </ul>
+
+    <script>
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register("/serviceworker.js");        
+        }
+
+        const ul = document.querySelector("ul");
+        
+        async function descargar() {
+            let res = await fetch("https://integracion.itesrc.net/api/categorias");
+            if(res.ok){
+                let lista = await res.json();
+                
+                for (let c of lista) {
+                    let li = document.createElement("li");
+                    li.textContent = c.nombre;
+                    ul.append(li);
+                }
+            }
+        }
+
+        descargar();
+    </script>
+    </body>
+</html>
