@@ -2,7 +2,7 @@ var cacheName = "estrategiasV2";
 
 self.addEventListener("fetch", function (event) {
     if (event.request.url.includes("api/categorias")) {
-        event.respondWith(networkFirst(event));
+        event.respondWith(staleWhileRevalidate(event));
     }
     else {
         event.respondWith(cacheFirst(event));
@@ -73,4 +73,33 @@ async function descargarDatos() {
     let datos = ["/", "/conectar", "styles.css", "manifest.json"];
     let cache = await caches.open(cacheName);
     cache.addAll(datos);
+}
+
+
+//Stale while revalidate
+async function staleWhileRevalidate(event) {
+    try {
+        let cache = await caches.open(cacheName);
+        let respuestaCache = cache.match(event.request);
+
+        event.waitUntil(revalidate(event.request.url, cache));
+
+        return respuestaCache || fetch(event.request);
+    }
+    catch(error) {
+        return new Response("No hay conexio a internet");
+    }
+}
+
+async function revalidate(url,cache) {
+    try {
+        //Revaludar: descargar y guardar en cache
+        let response = await fetch(url);
+        if (response.ok) {
+            cache.put(url, response);
+        }
+    }
+    catch (error) {
+        //No hubo respuesta, no es necesario hacer nada
+    }
 }

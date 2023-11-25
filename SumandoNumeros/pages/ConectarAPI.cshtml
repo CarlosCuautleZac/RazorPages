@@ -23,15 +23,20 @@
         const ul = document.querySelector("ul");
         
         async function descargar() {
-            let res = await fetch("https://integracion.itesrc.net/api/categorias");
-            if(res.ok){
-                let lista = await res.json();
-                
-                for (let c of lista) {
-                    let li = document.createElement("li");
-                    li.textContent = c.nombre;
-                    ul.append(li);
+            try{
+                let res = await fetch("https://integracion.itesrc.net/api/categorias");
+                if (res.ok) {
+                    let lista = await res.json();
+
+                    for (let c of lista) {
+                        let li = document.createElement("li");
+                        li.textContent = c.nombre;
+                        ul.append(li);
+                    }
                 }
+            }
+            catch(eror){
+                
             }
         }
 
