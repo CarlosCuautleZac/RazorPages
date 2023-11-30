@@ -4,26 +4,31 @@
 }
 
 <html>
-    <head>
-        <title>Conectar una API</title>
-    </head>
-    <body>
-        <h1>Lista de categorias</h1>
+<head>
+    <title>Conectar una API</title>
+</head>
+<body>
+    <h1>Lista de categorias</h1>
 
-        <ul>
-
-        </ul>
+    <ul>
+    </ul>
 
     <script>
 
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register("/serviceworker.js");        
+            navigator.serviceWorker.register("/serviceworker.js");
+
+
+            const bc = new BroadcastChannel("datosActualizados");
+            bc.addEventListener("message", function (event) {
+                console.log(event);
+            });
         }
 
         const ul = document.querySelector("ul");
-        
+
         async function descargar() {
-            try{
+            try {
                 let res = await fetch("https://integracion.itesrc.net/api/categorias");
                 if (res.ok) {
                     let lista = await res.json();
@@ -35,12 +40,12 @@
                     }
                 }
             }
-            catch(eror){
-                
+            catch (eror) {
+
             }
         }
 
         descargar();
     </script>
-    </body>
+</body>
 </html>
