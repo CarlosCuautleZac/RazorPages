@@ -15,23 +15,31 @@
 
     <script>
 
+        const ul = document.querySelector("ul");
+
+
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register("/serviceworker.js");
 
 
             const bc = new BroadcastChannel("datosActualizados");
+
             bc.addEventListener("message", function (event) {
-                console.log(event);
+                console.log(event.data.datos);
+                for (let c of event.data.datos) {
+                    let li = document.createElement("li");
+                    li.textContent = c.nombre;
+                    ul.append(li);
+                }
             });
         }
 
-        const ul = document.querySelector("ul");
-
         async function descargar() {
-            try {
-                let res = await fetch("https://integracion.itesrc.net/api/categorias");
-                if (res.ok) {
-                    let lista = await res.json();
+
+           try{
+                let respuesta = await fetch("https://integracion.itesrc.net/api/categorias");
+                if (respuesta.ok) {
+                    let lista = await respuesta.json();
 
                     for (let c of lista) {
                         let li = document.createElement("li");
@@ -39,10 +47,11 @@
                         ul.append(li);
                     }
                 }
-            }
-            catch (eror) {
+           }
+           catch(error){
+               console.log("Error al hacer fetch: "+error);
+           }
 
-            }
         }
 
         descargar();

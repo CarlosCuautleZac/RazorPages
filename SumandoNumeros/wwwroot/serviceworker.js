@@ -1,7 +1,7 @@
 var cacheName = "estrategiasV2";
 
 self.addEventListener("fetch", function (event) {
-    if (event.request.url.includes("api/categorias")) {
+    if (event.request.url.includes("https")) {
         event.respondWith(paralelStaleWhileRevalidate(event));
     }
     else {
@@ -109,11 +109,9 @@ async function revalidate(url,cache) {
                     url:url, 
                     datos:JSON.parse(textoResponse)
                 });
-
                 cache.put(url, response);
             }
 
-    
         }
     }
     catch (error) {
