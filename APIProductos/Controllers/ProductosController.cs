@@ -24,6 +24,17 @@ namespace APIProductos.Controllers
         [HttpGet]
         public IActionResult Get()
         {
+
+            
+            //if (User.IsInRole("Admin"))
+            //{
+            //    //Hacer algo
+            //}
+            //else
+            //{
+            //    //Hacer otra cosa
+            //}
+
             var datos = productosRepository.GetAll().GroupBy(x => x.IdCategoriaNavigation).Select(x => new CategoriaDTO
             {
                 Id = x.Key.Id,

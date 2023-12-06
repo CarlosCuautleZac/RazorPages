@@ -1,6 +1,7 @@
 ﻿using APIProductos.Models.DTOs;
 using APIProductos.Models.Entities;
 using APIProductos.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace APIProductos.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CategoriasController : ControllerBase
     {
         private readonly CategoriasRepository repository;
