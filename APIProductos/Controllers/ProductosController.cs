@@ -25,7 +25,7 @@ namespace APIProductos.Controllers
         public IActionResult Get()
         {
 
-            
+             
             //if (User.IsInRole("Admin"))
             //{
             //    //Hacer algo

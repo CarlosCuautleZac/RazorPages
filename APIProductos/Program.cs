@@ -15,9 +15,7 @@ var llave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("panaderiaLave9.1G")
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(jwt =>
 {
 
-    jwt.Authority = "https://itesrc.net";
     jwt.Audience = audence;
-
 
     jwt.TokenValidationParameters = new TokenValidationParameters
     {
