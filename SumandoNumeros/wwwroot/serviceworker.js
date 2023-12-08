@@ -1,7 +1,7 @@
 var cacheName = "estrategiasV2";
 
 self.addEventListener("fetch", function (event) {
-    if (event.request.url.includes("https")) {
+    if (event.request.url.includes("https") && !event.request.url.includes("panes") ) {
         event.respondWith(paralelStaleWhileRevalidate(event));
     }
     else {
