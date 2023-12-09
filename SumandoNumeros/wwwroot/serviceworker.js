@@ -1,12 +1,15 @@
 var cacheName = "estrategiasV2";
 
 self.addEventListener("fetch", function (event) {
-    if (event.request.url.includes("https") && !event.request.url.includes("panes") ) {
-        event.respondWith(paralelStaleWhileRevalidate(event));
+
+
+    if (event.request.url.includes("https") && !event.request.url.includes("panes") && !event.request.url.includes("login")) {
+        event.respondWith(networkFirst(event));
     }
     else {
         event.respondWith(cacheFirst(event));
     }
+
 });
 
 self.addEventListener("install", function (event) {

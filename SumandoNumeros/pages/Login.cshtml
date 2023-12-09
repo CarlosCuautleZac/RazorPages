@@ -11,13 +11,25 @@
 
     <h1>Iniciar sesion</h1>
     <label>Nombre de usuario:</label>
-    <input type="text" />
+    <input type="text" id="username" />
     <br />
     <label>Contraseña:</label>
-    <input type="password" />
+    <input type="password"  id="password"/>
     <br />
 
-    <input type="button" value="Entrar"/>
+    <input type="button" id="btnEntrar" value="Entrar"/>
+
+    <script src="~/seguridad.js"></script>
+    <script>
+        const user = document.querySelector("#username");
+        const password = document.querySelector("#password");
+
+        document.querySelector("#btnEntrar").addEventListener("click", function(){
+            fetchToken(user.value, password.value);
+        } )
+
+    </script>
+
 </body>
 </html>
 
