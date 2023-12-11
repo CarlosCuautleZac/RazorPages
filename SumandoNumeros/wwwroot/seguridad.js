@@ -49,6 +49,13 @@ async function login() {
     }
 }
 
+async function logout() {
+    sessionStorage.removeItem("jwt");
+    await navigator.credentials.preventSilentAccess();
+    location.href = "/login";
+}
+
+
 async function descargarDatos() {
 
     let autenticado =  await estoyAutenticado();
@@ -70,7 +77,6 @@ async function descargarDatos() {
                 li.textContent = x.descripcion;
                 ul.append(li);
             });
-            console.log(datos);
         }
         else {
             console.log(response);
