@@ -42,7 +42,7 @@ async function login() {
 
 
     if (credenciales) {    //ya tengo credenciales
-
+        await fetchToken(credenciales.id, credenciales.password);
     }
     else {  //No tengo guardadas
         location.href = "/login";
@@ -54,7 +54,27 @@ async function descargarDatos() {
     let autenticado =  await estoyAutenticado();
 
     if (autenticado) {
-        console.log("si estas dentro mijo");
+        const ul = document.querySelector("ul");
+
+        let response = await fetch("https://integracion.itesrc.net/api/panes", {
+            headers: {
+                "Authorization": "Bearer " + sessionStorage.jwt
+            }
+        });
+
+        if (response.ok) {
+            let datos = await response.json();
+            console.log(datos);
+            datos.forEach(x => {
+                let li = document.createElement("li");
+                li.textContent = x.descripcion;
+                ul.append(li);
+            });
+            console.log(datos);
+        }
+        else {
+            console.log(response);
+        }
 
     } else {
         //si no, tratamos de autenticarnos

@@ -3,7 +3,7 @@ var cacheName = "estrategiasV2";
 self.addEventListener("fetch", function (event) {
 
     if (event.request.method !="GET") {
-        event.respondWith(fetch(event.request, { method: 'post' }));
+        event.respondWith(fetch(event.request));
         return;
     }
     else if (event.request.url.includes("https") && !event.request.url.includes("panes") && !event.request.url.includes("login")) {
@@ -34,7 +34,7 @@ async function networkFirst(event) {
 
     let cache = await caches.open(cacheName);
     try {
-        let response = await fetch(event.request.url);
+        let response = await fetch(event.request);
 
         if (response.ok) {
             cache.put(event.request, response.clone());
