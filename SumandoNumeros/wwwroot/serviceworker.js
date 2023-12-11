@@ -2,8 +2,11 @@ var cacheName = "estrategiasV2";
 
 self.addEventListener("fetch", function (event) {
 
-
-    if (event.request.url.includes("https") && !event.request.url.includes("panes") && !event.request.url.includes("login")) {
+    if (event.request.method !="GET") {
+        event.respondWith(fetch(event.request, { method: 'post' }));
+        return;
+    }
+    else if (event.request.url.includes("https") && !event.request.url.includes("panes") && !event.request.url.includes("login")) {
         event.respondWith(networkFirst(event));
     }
     else {

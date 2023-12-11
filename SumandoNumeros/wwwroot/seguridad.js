@@ -6,7 +6,7 @@ async function estoyAutenticado() {
 
 async function fetchToken(username, password) {
     let userDto = { Usuario: username, Contraseña: password };
-    let response = await fetch("https://integracion.itesrc.net/login", {
+    let response = await fetch("https://integracion.itesrc.net/api/login", {
         method: "post",
         body: JSON.stringify(userDto),
         headers: {
@@ -25,7 +25,7 @@ async function fetchToken(username, password) {
         });
 
 
-        await navigator.credentials.store(credential);
+        await navigator.credentials.store(credencial);
 
         //redirigir
         location.href = "/panes";
