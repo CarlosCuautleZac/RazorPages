@@ -6,8 +6,8 @@ self.addEventListener("fetch", function (event) {
         event.respondWith(fetch(event.request));
         return;
     }
-    else if (event.request.url.includes("https") && !event.request.url.includes("panes") && !event.request.url.includes("login")) {
-        event.respondWith(networkFirst(event));
+    else if (event.request.url.includes("https") /*&& !event.request.url.includes("panes") && !event.request.url.includes("login")*/) {
+        event.respondWith(paralelStaleWhileRevalidate(event));
     }
     else {
         event.respondWith(cacheFirst(event));
